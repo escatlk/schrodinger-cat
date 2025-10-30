@@ -318,15 +318,16 @@
         // === STEP 3: REPLACE THESE WITH YOUR ACTUAL FIREBASE CONFIGURATION KEYS ===
         // =========================================================================
         // This configuration is used when the app runs live on a public host like GitHub Pages.
-        const firebaseConfig = {
-  apiKey: "AIzaSyCoX-9pMl4xTDEqVROXDsfS47PbYhhLsIs",
-  authDomain: "schrodinger-cat-523ec.firebaseapp.com",
-  projectId: "schrodinger-cat-523ec",
-  storageBucket: "schrodinger-cat-523ec.firebasestorage.app",
-  messagingSenderId: "154913099287",
-  appId: "1:154913099287:web:eeb9e26e17339e93ee9652",
-  measurementId: "G-00798EFXC6"
-};
+        // NOTE: The redundant definition was removed to fix the 'already declared' error.
+        const LIVE_FIREBASE_CONFIG = {
+            apiKey: "AIzaSyCoX-9pMl4xTDEqVROXDsfS47PbYhhLsIs",
+            authDomain: "schrodinger-cat-523ec.firebaseapp.com",
+            projectId: "schrodinger-cat-523ec",
+            storageBucket: "schrodinger-cat-523ec.firebasestorage.app",
+            messagingSenderId: "154913099287",
+            appId: "1:154913099287:web:eeb9e26e17339e93ee9652",
+            measurementId: "G-00798EFXC6"
+        };
 
 
         // Use the Canvas-provided config if available, otherwise use the live config object
@@ -403,21 +404,36 @@
         }
 
         // Attach the init function to the global app object
-        window.app.initFirebase = initFirebase;
+        // NOTE: This was moved outside the function to ensure 'window.app' can call it.
+        if (window.app) {
+             window.app.initFirebase = initFirebase;
+        } else {
+             window.app = { initFirebase: initFirebase };
+        }
+       
     </script>
 
 
     <!-- Main JavaScript for Interactivity and Themes -->
     <script>
+        // Ensure window.app exists before defining functions in case module script hasn't run yet
+        if (typeof window.app === 'undefined') {
+            window.app = {};
+        }
+
         const app = {
+            // Merge existing functions with the new initFirebase if it exists
+            ...window.app, 
             currentTab: 'home',
             
             init: function() {
-                // NEW: Initialize Firebase and Visitor Count
-                if (this.initFirebase) {
+                // Check if initFirebase has been attached from the module script
+                if (this.initFirebase && typeof this.initFirebase === 'function') {
                     this.initFirebase();
                 } else {
-                    console.error("Firebase module not loaded.");
+                    // This console error message is now expected only if the module script completely failed to load,
+                    // which is much less likely than before.
+                    console.error("Firebase module not loaded or initFirebase function not available.");
                 }
                 
                 this.setupTheme();
@@ -671,6 +687,7 @@
             }
         };
 
+        // Replace window.app with the newly constructed object
         window.app = app; 
 
         // Initialize the app on window load
