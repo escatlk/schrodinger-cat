@@ -310,10 +310,28 @@
         import { getFirestore, doc, onSnapshot, updateDoc, increment, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         // import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js"; // Optional for debugging
 
-        // Global Firebase variables provided by the Canvas environment
+        // Global Firebase variables provided by the Canvas environment (works here, not on GitHub Pages)
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
         const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+        
+        // =========================================================================
+        // === STEP 3: REPLACE THESE WITH YOUR ACTUAL FIREBASE CONFIGURATION KEYS ===
+        // =========================================================================
+        // This configuration is used when the app runs live on a public host like GitHub Pages.
+        const firebaseConfig = {
+  apiKey: "AIzaSyCoX-9pMl4xTDEqVROXDsfS47PbYhhLsIs",
+  authDomain: "schrodinger-cat-523ec.firebaseapp.com",
+  projectId: "schrodinger-cat-523ec",
+  storageBucket: "schrodinger-cat-523ec.firebasestorage.app",
+  messagingSenderId: "154913099287",
+  appId: "1:154913099287:web:eeb9e26e17339e93ee9652",
+  measurementId: "G-00798EFXC6"
+};
+
+
+        // Use the Canvas-provided config if available, otherwise use the live config object
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : LIVE_FIREBASE_CONFIG;
+        
 
         let db, auth;
 
@@ -326,6 +344,7 @@
                 auth = getAuth(appInstance);
 
                 // 1. Authenticate (required for Firestore rules)
+                // On GitHub Pages, initialAuthToken will be null, so it signs in anonymously
                 if (initialAuthToken) {
                     await signInWithCustomToken(auth, initialAuthToken);
                 } else {
@@ -333,7 +352,9 @@
                 }
                 
                 // Reference to the global public counter document
-                const countRef = doc(db, 'artifacts', appId, 'public/data/siteCounters', 'schrodinger_visits');
+                // NOTE: We use a placeholder 'default-app-id' for GitHub Pages since __app_id is null
+                const actualAppId = appId === 'default-app-id' ? 'schrodinger-app' : appId; // Use a fixed ID for simplicity
+                const countRef = doc(db, 'artifacts', actualAppId, 'public/data/siteCounters', 'schrodinger_visits');
                 
                 // 2. Increment Counter (Only once per session)
                 if (!sessionStorage.getItem('schrodinger_visited')) {
