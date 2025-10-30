@@ -259,15 +259,24 @@
                     <h3 class="text-2xl font-bold mb-4 border-b pb-2 text-gray-900 dark:text-white">Observer's Log (Comments)</h3>
                     <div id="public-observations" class="space-y-4 p-2 rounded-xl">
                         <!-- 
-                            *** IMPORTANT: PASTE YOUR GENERATED GISCUS SCRIPT HERE ***
-                            1. Go to https://giscus.app
-                            2. Configure your repository details (it must be public).
-                            3. Copy the <script> block they provide and replace the <p> tag below with it.
-                            This script will automatically load comments from your GitHub repo's Discussions.
+                            *** GISCUS SCRIPT INSERTED HERE, TARGETING escatlk/schrodinger-cat ***
+                            This script enables the GitHub Discussions comment system.
                         -->
-                        <p class="text-center italic text-gray-700 dark:text-gray-300 font-semibold p-6 bg-gray-100 dark:bg-gray-900/50 rounded-lg">
-                            Giscus Comment System will load here once configured with your GitHub repository!
-                        </p>
+                        <script src="https://giscus.app/client.js"
+                                data-repo="escatlk/schrodinger-cat"
+                                data-repo-id="R_kgDOQL1scw"
+                                data-category="General"
+                                data-category-id="DIC_kwDOQL1sc84CxPav"
+                                data-mapping="title"
+                                data-strict="0"
+                                data-reactions-enabled="1"
+                                data-emit-metadata="0"
+                                data-input-position="bottom"
+                                data-theme="preferred_color_scheme"
+                                data-lang="en"
+                                crossorigin="anonymous"
+                                async>
+                        </script>
                     </div>
                 </div>
 
@@ -346,13 +355,17 @@
                 const theme = isDark ? 'dark' : 'light'; 
                 
                 // Get the Giscus iframe
-                const iframe = document.querySelector('iframe.giscus-frame');
-                if (iframe) {
-                    iframe.contentWindow.postMessage(
-                        { giscus: { setConfig: { theme: theme } } },
-                        'https://giscus.app'
-                    );
-                }
+                // NOTE: Giscus loads its iframe async, so we use a setTimeout or MutationObserver 
+                // to wait for it, but for a simple site, a short timeout is often fine for initial load.
+                setTimeout(() => {
+                    const iframe = document.querySelector('iframe.giscus-frame');
+                    if (iframe) {
+                        iframe.contentWindow.postMessage(
+                            { giscus: { setConfig: { theme: theme } } },
+                            'https://giscus.app'
+                        );
+                    }
+                }, 500); // Give Giscus a moment to load
             },
             
             // Overriding the theme setup to include Giscus theme update
