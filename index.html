@@ -96,11 +96,6 @@
         .dark #live-timestamp {
             color: rgb(253 224 71 / var(--tw-text-opacity)); /* Tailwind yellow-300 equivalent */
         }
-        /* Style for the User ID Display */
-        #user-id-display {
-            font-family: 'Roboto Mono', monospace;
-            font-size: 0.75rem; /* text-xs */
-        }
     </style>
     <script>
         tailwind.config = {
@@ -207,11 +202,11 @@
             <section id="tab-news" class="tab-content hidden opacity-0">
                 <h2 class="text-4xl font-bold mb-8 border-b-2 pb-2 border-accent-light dark:border-accent-dark">Latest News</h2>
                 <div class="space-y-8">
-                    <!-- New Article -->
+                    <!-- Article -->
                     <article class="p-6 rounded-xl bg-white dark:bg-gray-800 shadow-md transition duration-300 hover:shadow-xl">
                         <span class="text-sm font-semibold text-accent-light dark:text-accent-dark uppercase">October 2025</span>
-                        <h3 class="text-2xl font-bold my-2">Local Log Implemented</h3>
-                        <p class="text-gray-700 dark:text-gray-400">The Contact page now features a **Local Observation Log** powered by your browser's storage. All observations are saved only on your device, simulating the log functionality without requiring a database!</p>
+                        <h3 class="text-2xl font-bold my-2">Contact Portal Sealed</h3>
+                        <p class="text-gray-700 dark:text-gray-400">The external observation portal has been sealed to maintain maximum quantum coherence. All attempts to log observations are temporarily suspended.</p>
                     </article>
                 </div>
             </section>
@@ -234,46 +229,20 @@
                 </div>
             </section>
 
-            <!-- CONTACT Section (Now uses Local Storage Log) -->
+            <!-- CONTACT Section (NOW EMPTY) -->
             <section id="tab-contact" class="tab-content hidden opacity-0">
-                <h2 class="text-4xl font-bold mb-8 border-b-2 pb-2 border-accent-light dark:border-accent-dark">Inquire Within the Box (Local Log)</h2>
+                <h2 class="text-4xl font-bold mb-8 border-b-2 pb-2 border-accent-light dark:border-accent-dark">Inquire Within the Box</h2>
                 
-                <!-- Display User ID -->
-                <div class="max-w-xl mx-auto mb-4 p-3 rounded-lg bg-gray-100 dark:bg-gray-800 border border-dashed border-gray-300 dark:border-gray-600">
-                    <p class="text-sm text-gray-600 dark:text-gray-400 font-medium">Your Observer ID (Local):</p>
-                    <p id="user-id-display" class="break-all text-sm font-bold text-accent-light dark:text-accent-dark mt-1">Generating ID...</p>
-                </div>
-
-                <!-- Submission Form -->
-                <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-2xl max-w-xl mx-auto mb-12">
-                    <p class="mb-6 text-gray-600 dark:text-gray-400">
-                        Submit your observation below. It will be recorded in your **browser's local storage**. (To save this log collaboratively on a platform like GitHub, a secure backend service would be required.)
+                <!-- Simple placeholder message -->
+                <div class="max-w-xl mx-auto p-8 rounded-xl bg-white dark:bg-gray-800 shadow-2xl text-center">
+                    <span class="text-6xl mb-4 block" role="img" aria-label="Sealed Box">📦</span>
+                    <p class="text-xl text-gray-700 dark:text-gray-300 font-medium">
+                        The external portal is currently sealed for quantum coherence.
                     </p>
-                    
-                    <form id="observation-form" class="space-y-4">
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Observer Name (Optional)</label>
-                            <input type="text" id="name" name="name" class="mt-1 block w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm p-3 focus:ring-accent-light focus:border-accent-light dark:focus:ring-accent-dark dark:focus:border-accent-dark transition duration-300" placeholder="Heisenberg">
-                        </div>
-                        <div>
-                            <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Your Observation / Question</label>
-                            <textarea id="message" name="message" rows="4" required class="mt-1 block w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm p-3 focus:ring-accent-light focus:border-accent-light dark:focus:ring-accent-dark dark:focus:border-accent-dark transition duration-300" placeholder="Did I see a flicker?"></textarea>
-                        </div>
-                        <button type="submit" id="submit-observation" class="w-full py-3 px-4 border border-transparent rounded-lg shadow-lg text-white font-semibold bg-accent-light dark:bg-accent-dark hover:opacity-90 transition duration-300 transform hover:scale-[1.01]">
-                            Save Observation to Local Log
-                        </button>
-                    </form>
+                    <p class="mt-4 text-base text-gray-500 dark:text-gray-400">
+                        No observations or inquiries are permitted at this time.
+                    </p>
                 </div>
-                
-                <!-- Real-Time Log Container -->
-                <div class="max-w-xl mx-auto">
-                    <h3 class="text-2xl font-bold mb-4 border-b pb-2 text-gray-900 dark:text-white">Observer's Local Log</h3>
-                    <div id="realtime-log" class="space-y-4 p-4 rounded-xl bg-gray-50 dark:bg-gray-700 h-[60vh] overflow-y-auto shadow-inner">
-                        <p id="loading-message" class="text-center italic text-gray-500 dark:text-gray-400">Loading your saved local observations...</p>
-                        <!-- Observations will be rendered here by JavaScript -->
-                    </div>
-                </div>
-
             </section>
             
             <!-- MORE Section (FAQ) -->
@@ -305,7 +274,7 @@
             
             <!-- Social Icons Container -->
             <div class="flex justify-center space-x-8 mb-4">
-                <!-- YouTube (Brand icon - red) -->
+                <!-- YouTube (Brand icon) -->
                 <a href="https://youtube.com/@ErwinSchrodingerCat" target="_blank" aria-label="YouTube Channel" class="text-3xl text-red-600 dark:text-red-400 hover:scale-125 transition-transform duration-200" title="YouTube">
                     <i class="fab fa-youtube"></i>
                 </a>
@@ -313,166 +282,131 @@
                 <a href="https://instagram.com/ErwinSchrodingerCat" target="_blank" aria-label="Instagram Profile" class="text-3xl text-pink-500 dark:text-accent-dark hover:scale-125 transition-transform duration-200" title="Instagram">
                     <i class="fab fa-instagram"></i>
                 </a>
-                <!-- Telegram (Brand icon - uses Blue accent color) -->
-                <a href="https://t.me/ErwinSchrodingerCat" target="_blank" aria-label="Telegram Channel" class="class="text-3xl text-blue-500 dark:text-accent-light hover:scale-125 transition-transform duration-200" title="Telegram">
+                <!-- Telegram (Brand icon - uses Blue accent color) - ADJUSTED SIZE -->
+                <a href="https://t.me/ErwinSchrodingerCat" target="_blank" aria-label="Telegram Channel" class="text-2xl text-blue-500 dark:text-accent-light hover:scale-125 transition-transform duration-200" title="Telegram">
                     <i class="fab fa-telegram-plane"></i>
                 </a>
             </div>
 
             <!-- Copyright Text -->
             <p>&copy; 2025 Erwin Schrödinger's Cat. Unauthorized observation is discouraged but inevitable.</p>
-            <!-- Live Timestamp Placeholder (Using Monospace style) -->
-            <p id="live-timestamp" class="mt-1 text-xs italic opacity-80"></p>
+            
+            <!-- Visitor Count and Live Timestamp Container -->
+            <div class="mt-2 space-y-1">
+                 <!-- Visitor Count Placeholder -->
+                <p id="visitor-count" class="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                    VISITORS: Loading...
+                </p>
+                <!-- Live Timestamp Placeholder (Using Monospace style) -->
+                <p id="live-timestamp" class="mt-1 text-xs italic opacity-80"></p>
+            </div>
         </footer>
     </div>
 
-    <!-- Main JavaScript for Interactivity and Themes -->
-    <script type="text/javascript">
-        
-        // Use crypto.randomUUID for unique IDs, polyfill if necessary
-        const generateUUID = () => {
-            if (typeof crypto !== 'undefined' && crypto.randomUUID) {
-                return crypto.randomUUID();
+    <!-- Firebase Imports and Logic (Module Script) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, onSnapshot, updateDoc, increment, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        // import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js"; // Optional for debugging
+
+        // Global Firebase variables provided by the Canvas environment
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let db, auth;
+
+        // Function to initialize Firebase and handle visitor count
+        async function initFirebase() {
+            try {
+                // setLogLevel('Debug'); // Uncomment for debugging
+                const appInstance = initializeApp(firebaseConfig);
+                db = getFirestore(appInstance);
+                auth = getAuth(appInstance);
+
+                // 1. Authenticate (required for Firestore rules)
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+                
+                // Reference to the global public counter document
+                const countRef = doc(db, 'artifacts', appId, 'public/data/siteCounters', 'schrodinger_visits');
+                
+                // 2. Increment Counter (Only once per session)
+                if (!sessionStorage.getItem('schrodinger_visited')) {
+                    
+                    // Check if the document exists before trying to update/increment
+                    const docSnap = await getDoc(countRef);
+                    
+                    if (docSnap.exists()) {
+                        // Document exists, safely increment
+                        await updateDoc(countRef, {
+                            count: increment(1)
+                        });
+                    } else {
+                        // Document does not exist, create it with initial count 1
+                        await setDoc(countRef, {
+                            count: 1,
+                            createdAt: new Date().toISOString()
+                        });
+                    }
+                    
+                    sessionStorage.setItem('schrodinger_visited', 'true');
+                }
+                
+                // 3. Listen for real-time updates and display
+                onSnapshot(countRef, (docSnap) => {
+                    const countDisplay = document.getElementById('visitor-count');
+                    // Use accent colors for the count number
+                    const accentColorClass = document.documentElement.classList.contains('dark') ? 'dark:text-accent-dark' : 'text-accent-light';
+
+                    if (docSnap.exists()) {
+                        const count = docSnap.data().count || 0;
+                        countDisplay.innerHTML = `VISITORS: <span class="font-extrabold ${accentColorClass}">${count.toLocaleString()}</span>`;
+                    } else {
+                        countDisplay.innerHTML = `VISITORS: <span class="text-red-500">ERROR (DOC MISSING)</span>`;
+                    }
+                }, (error) => {
+                    console.error("Error listening to counter snapshot:", error);
+                    document.getElementById('visitor-count').textContent = 'VISITORS: Connection Failed';
+                });
+                
+            } catch (error) {
+                console.error("Firebase initialization or visitor count failed:", error);
+                const countDisplay = document.getElementById('visitor-count');
+                countDisplay.textContent = 'VISITORS: ERROR';
             }
-            // Fallback for older environments
-            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-                return v.toString(16);
-            });
         }
-        
+
+        // Attach the init function to the global app object
+        window.app.initFirebase = initFirebase;
+    </script>
+
+
+    <!-- Main JavaScript for Interactivity and Themes -->
+    <script>
         const app = {
             currentTab: 'home',
-            userId: null,
-            LOCAL_STORAGE_KEY: 'schrodinger_local_log',
-            USER_ID_KEY: 'schrodinger_local_user_id',
             
             init: function() {
-                this.setupLocalUser();
+                // NEW: Initialize Firebase and Visitor Count
+                if (this.initFirebase) {
+                    this.initFirebase();
+                } else {
+                    console.error("Firebase module not loaded.");
+                }
+                
                 this.setupTheme();
                 this.setupNavigation();
-                this.setupFormHandler(); 
                 this.startMeowLoop(); 
                 this.initCountdown();
                 this.updateLiveTimestamp();
-                this.startFloatingCats(); 
-                this.renderObservations(this.loadObservations(), document.getElementById('realtime-log')); // Initial load
             },
 
-            // --- LOCAL STORAGE FUNCTIONS (Replaces Firebase) ---
-            setupLocalUser: function() {
-                // Get or create a unique ID for this local user/browser
-                let localId = localStorage.getItem(this.USER_ID_KEY);
-                if (!localId) {
-                    localId = generateUUID();
-                    localStorage.setItem(this.USER_ID_KEY, localId);
-                }
-                this.userId = 'LocalObserver-' + localId.substring(0, 8); // Shortened for display
-                document.getElementById('user-id-display').textContent = this.userId;
-            },
-            
-            loadObservations: function() {
-                try {
-                    const data = localStorage.getItem(this.LOCAL_STORAGE_KEY);
-                    if (data) {
-                        // Sort by timestamp descending (newest first)
-                        return JSON.parse(data).sort((a, b) => b.timestamp - a.timestamp);
-                    }
-                } catch (e) {
-                    console.error("Error loading observations from local storage:", e);
-                }
-                return [];
-            },
-            
-            saveObservations: function(observations) {
-                try {
-                    localStorage.setItem(this.LOCAL_STORAGE_KEY, JSON.stringify(observations));
-                } catch (e) {
-                    console.error("Error saving observations to local storage:", e);
-                }
-            },
-            
-            // --- SAVE OBSERVATION TO LOCAL STORAGE ---
-            simulateSubmission: function(e) {
-                e.preventDefault();
-                
-                const form = e.target;
-                const submitButton = document.getElementById('submit-observation');
-                const originalText = submitButton.textContent;
-                const logContainer = document.getElementById('realtime-log');
-
-                const name = form.elements['name'].value.trim() || 'Anonymous Observer';
-                const message = form.elements['message'].value.trim();
-
-                if (!message) return;
-
-                submitButton.disabled = true;
-                submitButton.textContent = 'Recording Local Observation...';
-                
-                // 1. Load existing observations
-                let observations = app.loadObservations();
-                
-                // 2. Add new observation
-                const newObservation = {
-                    name: name,
-                    message: message,
-                    timestamp: new Date().getTime(),
-                    observerId: app.userId,
-                    id: generateUUID()
-                };
-
-                observations.unshift(newObservation); // Add to the front for easy sorting (though loadObservations sorts too)
-
-                // 3. Save back to local storage
-                app.saveObservations(observations);
-
-                // 4. Update UI
-                app.renderObservations(observations, logContainer);
-                
-                submitButton.textContent = 'Observation Recorded Locally! ᓚᘏᗢ';
-                submitButton.classList.remove('bg-accent-light', 'dark:bg-accent-dark');
-                submitButton.classList.add('bg-green-500', 'dark:bg-green-700');
-                
-                form.reset();
-
-                setTimeout(() => {
-                    submitButton.textContent = originalText;
-                    submitButton.classList.remove('bg-green-500', 'dark:bg-green-700');
-                    submitButton.classList.add('bg-accent-light', 'dark:bg-accent-dark');
-                    submitButton.disabled = false;
-                }, 3000);
-            },
-            
-            // --- RENDER OBSERVATIONS ---
-            renderObservations: function(observations, container) {
-                if (document.getElementById('loading-message')) {
-                    document.getElementById('loading-message').remove();
-                }
-
-                if (observations.length === 0) {
-                    container.innerHTML = '<p class="text-center italic text-gray-500 dark:text-gray-400 p-4">Be the first to log a local observation!</p>';
-                    return;
-                }
-
-                container.innerHTML = observations.map(obs => {
-                    const date = new Date(obs.timestamp).toLocaleString();
-                    // Check if the observer ID matches the current browser's ID
-                    const isCurrentUser = obs.observerId === app.userId;
-                    const nameDisplay = isCurrentUser 
-                        ? `<span class="font-bold text-accent-light dark:text-accent-dark">${obs.name} (You)</span>`
-                        : `<span class="font-bold">${obs.name}</span>`;
-
-                    return `
-                        <div class="p-4 rounded-lg shadow-sm border ${isCurrentUser ? 'border-accent-light dark:border-accent-dark bg-blue-50 dark:bg-gray-800' : 'border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700'}">
-                            <p class="text-sm mb-1">${nameDisplay}</p>
-                            <p class="text-gray-900 dark:text-gray-200">${obs.message}</p>
-                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Logged at ${date} by ${obs.observerId}</p>
-                        </div>
-                    `;
-                }).join('');
-            },
-
-            // --- UI FUNCTIONS (Unchanged from previous version) ---
+            // --- UI FUNCTIONS ---
             setupTheme: function() {
                 const toggleButton = document.getElementById('theme-toggle');
                 const html = document.documentElement;
@@ -506,7 +440,12 @@
             
             setupNavigation: function() {
                 const tabs = document.querySelectorAll('.tab-link');
-                const initialTab = window.location.hash.substring(1) || 'home';
+                let initialTab = window.location.hash.substring(1);
+                const validTabs = Array.from(tabs).map(t => t.dataset.tab);
+                if (!validTabs.includes(initialTab)) {
+                    initialTab = 'home';
+                    history.replaceState(null, null, '#' + initialTab);
+                }
                 
                 this.switchTab(initialTab);
 
@@ -552,12 +491,6 @@
                     const container = document.getElementById('floating-cats');
                     if (container) container.innerHTML = '';
                 }
-            },
-            
-            setupFormHandler: function() {
-                const form = document.getElementById('observation-form');
-                // The form submission is now connected to the local storage save function
-                form.addEventListener('submit', this.simulateSubmission);
             },
             
             updateLiveTimestamp: function() {
@@ -666,7 +599,9 @@
             },
 
             startFloatingCats: function() {
-                if (this.currentTab !== 'home') return; 
+                if (this._catTimer) {
+                    clearTimeout(this._catTimer);
+                }
 
                 const scheduleNext = () => {
                     if (this.currentTab !== 'home') {
@@ -674,7 +609,7 @@
                     }
                     this.triggerFloatingElement();
                     const randomDelay = Math.random() * 1500 + 1500; 
-                    setTimeout(scheduleNext, randomDelay);
+                    this._catTimer = setTimeout(scheduleNext, randomDelay);
                 };
                 
                 scheduleNext();
