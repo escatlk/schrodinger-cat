@@ -1,103 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" class="dark"> <!-- Default to dark mode for the 'quantum' feel -->
 <html lang="en" class="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Schrödinger's Cat: The Quantum Portal</title>
-<script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome CDN for social media icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    
-<style>
-        /* Custom Font Import */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schrödinger's Cat: The Quantum Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
-
-        body {
-            font-family: 'Inter', sans-serif;
-            /* Smooth transition for theme change */
-            transition: background-color 0.5s ease, color 0.5s ease;
-        }
-
-        /* Custom animation for the superposition circle */
-        @keyframes pulse-duality {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.05); opacity: 1; }
-        }
-        .animate-duality {
-            animation: pulse-duality 3s infinite ease-in-out;
-        }
-        
-        /* Animation for gentle, slow rotation */
-        @keyframes rotate-gentle {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        .animate-rotate-slow {
-            animation: rotate-gentle 60s linear infinite;
-        }
-
-        /* Custom animation for the floating meow (Vertical/Page-wide) */
-        @keyframes float-meow {
-            0% { transform: translate(-50%, 0); opacity: 0; }
-            10% { opacity: 0.8; }
-            80% { transform: translate(-50%, -100px); opacity: 0.5; }
-            100% { transform: translate(-50%, -150px); opacity: 0; }
-        }
-
-        /* Custom animation for horizontal floating text/emojis (Home Tab) */
-        @keyframes float-horizontal {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100vw); } /* Use 100vw to ensure it exits the viewport on the right */
-        }
-
-        /* Main container for responsiveness */
-        .container-main {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Style for the active tab indicator */
-        .active-tab {
-            position: relative;
-        }
-        .active-tab::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            height: 3px;
-            background-color: currentColor; /* Matches text color */
-            border-radius: 9999px;
-            transition: width 0.3s ease;
-        }
-
-        /* Content fade transition */
-        .tab-content {
-            transition: opacity 0.5s ease;
-        }
-        .opacity-0 {
-            opacity: 0;
-        }
-        .opacity-100 {
-            opacity: 1;
-        }
-        
-        /* Style for the Live Timestamp (Monospace/Terminal Look) */
-        #live-timestamp {
-            font-family: 'Roboto Mono', monospace;
-            letter-spacing: 0.05em;
-            color: rgb(74 222 128 / var(--tw-text-opacity)); /* Tailwind green-400 equivalent */
-            --tw-text-opacity: 0.8;
-            font-size: 0.75rem; /* text-xs */
-        }
-        .dark #live-timestamp {
-            color: rgb(253 224 71 / var(--tw-text-opacity)); /* Tailwind yellow-300 equivalent */
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
         body { font-family: 'Inter', sans-serif; transition: background-color 0.5s ease, color 0.5s ease; }
         @keyframes pulse-duality { 0%,100%{ transform: scale(1); opacity: .8 } 50%{ transform: scale(1.05); opacity: 1 } }
         .animate-duality{ animation: pulse-duality 3s infinite ease-in-out }
@@ -113,656 +24,185 @@
         .opacity-100{ opacity:1 }
         #live-timestamp{ font-family:'Roboto Mono', monospace; letter-spacing:.05em; --tw-text-opacity:.8; font-size:.75rem }
         .dark #live-timestamp{ color: rgb(253 224 71 / var(--tw-text-opacity)) }
-</style>
-<script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        // Custom, balanced color palette (Pink and Light Blue)
-                        'quantum-light': 'rgb(245, 245, 250)', // Light cream BG
-                        'accent-dark': 'rgb(244, 114, 182)', // Vibrant Pink (Dark mode accent)
-                        'accent-light': 'rgb(56, 189, 248)',  // Light Blue (Light mode accent)
-                    }
-                }
-            }
-        }
+    </style>
+    <script>
         tailwind.config = { darkMode: 'class', theme: { extend: { colors: { 'quantum-light': 'rgb(245, 245, 250)', 'accent-dark': 'rgb(244, 114, 182)', 'accent-light': 'rgb(56, 189, 248)' } } } }
-</script>
+    </script>
 </head>
 <body class="bg-quantum-light text-gray-900 dark:bg-gray-900 dark:text-quantum-light min-h-screen">
-    
-    <!-- MEOW CONTAINER: Fixed element for floating animation -->
-<div id="meow-container" class="fixed inset-0 pointer-events-none z-50"></div>
-
-    <!-- Application Wrapper -->
-<div id="app" class="container-main p-4 md:p-8">
-
-        <!-- Header and Navigation -->
-<header class="flex flex-col md:flex-row justify-between items-center py-4 md:py-8 border-b border-gray-300 dark:border-gray-700">
-            <h1 class="text-3xl font-extrabold text-accent-light dark:text-accent-dark tracking-tighter transition duration-500">
-                Schrödinger's Cat
-            </h1>
-            
-            <!-- Navigation Tabs -->
+    <div id="meow-container" class="fixed inset-0 pointer-events-none z-50"></div>
+    <div id="app" class="container-main p-4 md:p-8">
+        <header class="flex flex-col md:flex-row justify-between items-center py-4 md:py-8 border-b border-gray-300 dark:border-gray-700">
             <h1 class="text-3xl font-extrabold text-accent-light dark:text-accent-dark tracking-tighter transition duration-500">Schrödinger's Cat</h1>
-<nav id="nav-tabs" class="flex flex-wrap justify-center space-x-4 md:space-x-8 mt-4 md:mt-0 text-lg font-medium">
-                <!-- Data-tab attribute links to the section ID -->
-<a href="#home" data-tab="home" class="tab-link text-gray-700 dark:text-gray-300 hover:text-accent-light dark:hover:text-accent-dark transition duration-300 pb-2">Home</a>
-<a href="#news" data-tab="news" class="tab-link text-gray-700 dark:text-gray-300 hover:text-accent-light dark:hover:text-accent-dark transition duration-300 pb-2">News</a>
-<a href="#about" data-tab="about" class="tab-link text-gray-700 dark:text-gray-300 hover:text-accent-light dark:hover:text-accent-dark transition duration-300 pb-2">About</a>
-<a href="#contact" data-tab="contact" class="tab-link text-gray-700 dark:text-gray-300 hover:text-accent-light dark:hover:text-accent-dark transition duration-300 pb-2">Contact</a>
-<a href="#more" data-tab="more" class="tab-link text-gray-700 dark:text-gray-300 hover:text-accent-light dark:hover:text-accent-dark transition duration-300 pb-2">More</a>
-</nav>
-
-            <!-- Theme Toggle -->
-<button id="theme-toggle" class="mt-4 md:mt-0 p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:scale-110 transition transform duration-300 shadow-md">
-                <!-- Sun Icon (for Dark Mode button state) -->
-<svg id="sun-icon" class="w-6 h-6 text-yellow-500 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                <!-- Moon Icon (for Light Mode button state) -->
-<svg id="moon-icon" class="w-6 h-6 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-</button>
-</header>
-
-        <!-- Main Content Area -->
-<main id="content-container" class="mt-12">
-            
-            <!-- HOME Section (Initial view) -->
-<section id="tab-home" class="tab-content opacity-100 relative overflow-hidden">
-                <!-- Floating Cats Container - Absolute positioned to cover the section -->
-<div id="floating-cats" class="absolute inset-0 pointer-events-none z-0 overflow-hidden"></div>
-                
-                <div class="text-center relative z-10"> <!-- z-10 ensures content is above floating elements -->
-
-                    <!-- A/L Exam Countdown Timer -->
+            <nav id="nav-tabs" class="flex flex-wrap justify-center space-x-4 md:space-x-8 mt-4 md:mt-0 text-lg font-medium">
+                <a href="#home" data-tab="home" class="tab-link text-gray-700 dark:text-gray-300 hover:text-accent-light dark:hover:text-accent-dark transition duration-300 pb-2">Home</a>
+                <a href="#news" data-tab="news" class="tab-link text-gray-700 dark:text-gray-300 hover:text-accent-light dark:hover:text-accent-dark transition duration-300 pb-2">News</a>
+                <a href="#about" data-tab="about" class="tab-link text-gray-700 dark:text-gray-300 hover:text-accent-light dark:hover:text-accent-dark transition duration-300 pb-2">About</a>
+                <a href="#contact" data-tab="contact" class="tab-link text-gray-700 dark:text-gray-300 hover:text-accent-light dark:hover:text-accent-dark transition duration-300 pb-2">Contact</a>
+                <a href="#more" data-tab="more" class="tab-link text-gray-700 dark:text-gray-300 hover:text-accent-light dark:hover:text-accent-dark transition duration-300 pb-2">More</a>
+            </nav>
+            <button id="theme-toggle" class="mt-4 md:mt-0 p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:scale-110 transition transform duration-300 shadow-md">
+                <svg id="sun-icon" class="w-6 h-6 text-yellow-500 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                <svg id="moon-icon" class="w-6 h-6 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+            </button>
+        </header>
+        <main id="content-container" class="mt-12">
+            <section id="tab-home" class="tab-content opacity-100 relative overflow-hidden">
+                <div id="floating-cats" class="absolute inset-0 pointer-events-none z-0 overflow-hidden"></div>
                 <div class="text-center relative z-10">
-<div id="al-countdown" class="mb-10 p-4 rounded-xl bg-gray-200/50 dark:bg-gray-800/70 border border-dashed border-accent-light/50 dark:border-accent-dark/50 max-w-lg mx-auto shadow-inner">
-<p class="text-lg font-bold uppercase tracking-wider mb-2 text-gray-700 dark:text-gray-300">2025 A/L Exam Live Countdown</p>
-                        <div id="countdown-display" class="text-3xl font-extrabold text-red-500 dark:text-yellow-400">
-                            Loading...
-                        </div>
+                    <div id="al-countdown" class="mb-10 p-4 rounded-xl bg-gray-200/50 dark:bg-gray-800/70 border border-dashed border-accent-light/50 dark:border-accent-dark/50 max-w-lg mx-auto shadow-inner">
+                        <p class="text-lg font-bold uppercase tracking-wider mb-2 text-gray-700 dark:text-gray-300">2025 A/L Exam Live Countdown</p>
                         <div id="countdown-display" class="text-3xl font-extrabold text-red-500 dark:text-yellow-400">Loading...</div>
-</div>
-                    <!-- End Countdown Timer -->
-                    
-                    <!-- Superposition State Animation -->
-<div class="flex justify-center items-center mb-10">
-<div class="relative w-64 h-64 md:w-80 md:h-80">
-                            <!-- Outer Ring (Slow Rotation) -->
-<div class="absolute inset-0 rounded-full border-8 border-dashed border-accent-light/50 dark:border-accent-dark/50 animate-rotate-slow"></div>
-
-                            <!-- Inner Core (Pulsing Duality) -->
-<div class="absolute inset-4 md:inset-6 rounded-full bg-gradient-to-br from-cyan-300/30 to-pink-300/30 dark:from-pink-900/40 dark:to-blue-900/40 flex items-center justify-center animate-duality shadow-xl">
-                                <!-- Quantum symbol Psi -->
-<span class="text-4xl md:text-5xl font-extrabold text-accent-light dark:text-accent-dark">Ψ</span>
-                                <!-- Faint question mark for ambiguity -->
-<span class="absolute text-7xl md:text-9xl opacity-10">?</span>
-</div>
-                            
-                            <!-- Superposition Status Text -->
-                            <div class="absolute -top-10 left-1/2 transform -translate-x-1/2 text-2xl font-bold text-gray-700 dark:text-gray-300">
-                                SUPERPOSITION
+                    </div>
+                    <div class="flex justify-center items-center mb-10">
+                        <div class="relative w-64 h-64 md:w-80 md:h-80">
+                            <div class="absolute inset-0 rounded-full border-8 border-dashed border-accent-light/50 dark:border-accent-dark/50 animate-rotate-slow"></div>
+                            <div class="absolute inset-4 md:inset-6 rounded-full bg-gradient-to-br from-cyan-300/30 to-pink-300/30 dark:from-pink-900/40 dark:to-blue-900/40 flex items-center justify-center animate-duality shadow-xl">
+                                <span class="text-4xl md:text-5xl font-extrabold text-accent-light dark:text-accent-dark">Ψ</span>
+                                <span class="absolute text-7xl md:text-9xl opacity-10">?</span>
                             </div>
                             <div class="absolute -top-10 left-1/2 transform -translate-x-1/2 text-2xl font-bold text-gray-700 dark:text-gray-300">SUPERPOSITION</div>
-</div>
-</div>
-                    <!-- END NEW ANIMATION -->
-                    
-                    <!-- Updated text in the box -->
-<div class="p-6 rounded-xl bg-gray-100 dark:bg-gray-800 shadow-lg max-w-xl mx-auto">
-<span class="text-5xl" role="img" aria-label="Cat and Skull Emoji">😺 💀</span>
-                        <p class="mt-4 text-gray-700 dark:text-gray-400 font-medium">
-                            I am both alive and dead.
-                        </p>
+                        </div>
+                    </div>
+                    <div class="p-6 rounded-xl bg-gray-100 dark:bg-gray-800 shadow-lg max-w-xl mx-auto">
+                        <span class="text-5xl" role="img" aria-label="Cat and Skull Emoji">😺 💀</span>
                         <p class="mt-4 text-gray-700 dark:text-gray-400 font-medium">I am both alive and dead.</p>
-</div>
-
-</div>
-</section>
-
-            <!-- NEWS Section -->
-<section id="tab-news" class="tab-content hidden opacity-0">
-<h2 class="text-4xl font-bold mb-8 border-b-2 pb-2 border-accent-light dark:border-accent-dark">Latest News</h2>
-<div class="space-y-8">
-                    <!-- Article -->
-<article class="p-6 rounded-xl bg-white dark:bg-gray-800 shadow-md transition duration-300 hover:shadow-xl">
-<span class="text-sm font-semibold text-accent-light dark:text-accent-dark uppercase">October 2025</span>
-<h3 class="text-2xl font-bold my-2">Contact Portal Sealed</h3>
-<p class="text-gray-700 dark:text-gray-400">The external observation portal has been sealed to maintain maximum quantum coherence. All attempts to log observations are temporarily suspended.</p>
-</article>
-</div>
-</section>
-
-            <!-- ABOUT Section -->
-<section id="tab-about" class="tab-content hidden opacity-0">
-<h2 class="text-4xl font-bold mb-8 border-b-2 pb-2 border-accent-light dark:border-accent-dark">The Thought Experiment, Explained</h2>
-<div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-400">
-                    <p class="text-lg">In 1935, Austrian physicist Erwin Schrödinger devised this thought experiment to illustrate the absurdity of applying the **Copenhagen interpretation** of quantum mechanics to macroscopic objects. He proposed a scenario involving a hypothetical cat that is simultaneously both **alive and dead**, due to its fate being linked to a random subatomic event.</p>
-                    
+                    </div>
+                </div>
+            </section>
+            <section id="tab-news" class="tab-content hidden opacity-0">
+                <h2 class="text-4xl font-bold mb-8 border-b-2 pb-2 border-accent-light dark:border-accent-dark">Latest News</h2>
+                <div class="space-y-8">
+                    <article class="p-6 rounded-xl bg-white dark:bg-gray-800 shadow-md transition duration-300 hover:shadow-xl">
+                        <span class="text-sm font-semibold text-accent-light dark:text-accent-dark uppercase">October 2025</span>
+                        <h3 class="text-2xl font-bold my-2">Contact Portal Sealed</h3>
+                        <p class="text-gray-700 dark:text-gray-400">The external observation portal has been sealed to maintain maximum quantum coherence. All attempts to log observations are temporarily suspended.</p>
+                    </article>
+                </div>
+            </section>
+            <section id="tab-about" class="tab-content hidden opacity-0">
+                <h2 class="text-4xl font-bold mb-8 border-b-2 pb-2 border-accent-light dark:border-accent-dark">The Thought Experiment, Explained</h2>
+                <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-400">
                     <p class="text-lg">In 1935, Austrian physicist Erwin Schrödinger devised this thought experiment to illustrate the absurdity of applying the <strong>Copenhagen interpretation</strong> of quantum mechanics to macroscopic objects. He proposed a scenario involving a hypothetical cat that is simultaneously both <strong>alive and dead</strong>, due to its fate being linked to a random subatomic event.</p>
-<h3 class="text-3xl font-semibold mt-6 mb-4 text-gray-900 dark:text-white">The Setup</h3>
-<ul class="list-disc list-inside space-y-2 ml-4">
-<li>A sealed steel chamber containing a cat, a vial of poison, a Geiger counter, and a radioactive source.</li>
-<li>If a single atom decays within one hour, the Geiger counter triggers a hammer, breaking the vial, and releasing the poison.</li>
-<li>The quantum state of the atom (decayed or not decayed) determines the classical state of the cat (dead or alive).</li>
-</ul>
-
-<h3 class="text-3xl font-semibold mt-6 mb-4 text-gray-900 dark:text-white">The Implication</h3>
-                    <p class="text-lg">According to the quantum rules applied literally, until an external observer opens the box, the cat's wave function exists in a superposition of two states: **50% Alive + 50% Dead**. The experiment served as a brilliant critique, forcing physicists to consider where the boundary between the quantum and classical worlds actually lies.</p>
+                    <h3 class="text-3xl font-semibold mt-6 mb-4 text-gray-900 dark:text-white">The Setup</h3>
+                    <ul class="list-disc list-inside space-y-2 ml-4">
+                        <li>A sealed steel chamber containing a cat, a vial of poison, a Geiger counter, and a radioactive source.</li>
+                        <li>If a single atom decays within one hour, the Geiger counter triggers a hammer, breaking the vial, and releasing the poison.</li>
+                        <li>The quantum state of the atom (decayed or not decayed) determines the classical state of the cat (dead or alive).</li>
+                    </ul>
+                    <h3 class="text-3xl font-semibold mt-6 mb-4 text-gray-900 dark:text-white">The Implication</h3>
                     <p class="text-lg">According to the quantum rules applied literally, until an external observer opens the box, the cat's wave function exists in a superposition of two states: <strong>50% Alive + 50% Dead</strong>. The experiment served as a brilliant critique, forcing physicists to consider where the boundary between the quantum and classical worlds actually lies.</p>
-</div>
-</section>
-
-            <!-- CONTACT Section (NOW EMPTY) -->
-<section id="tab-contact" class="tab-content hidden opacity-0">
-<h2 class="text-4xl font-bold mb-8 border-b-2 pb-2 border-accent-light dark:border-accent-dark">Inquire Within the Box</h2>
-                
-                <!-- Simple placeholder message -->
-<div class="max-w-xl mx-auto p-8 rounded-xl bg-white dark:bg-gray-800 shadow-2xl text-center">
-<span class="text-6xl mb-4 block" role="img" aria-label="Sealed Box">📦</span>
-                    <p class="text-xl text-gray-700 dark:text-gray-300 font-medium">
-                        The external portal is currently sealed for quantum coherence.
-                    </p>
-                    <p class="mt-4 text-base text-gray-500 dark:text-gray-400">
-                        No observations or inquiries are permitted at this time.
-                    </p>
+                </div>
+            </section>
+            <section id="tab-contact" class="tab-content hidden opacity-0">
+                <h2 class="text-4xl font-bold mb-8 border-b-2 pb-2 border-accent-light dark:border-accent-dark">Inquire Within the Box</h2>
+                <div class="max-w-xl mx-auto p-8 rounded-xl bg-white dark:bg-gray-800 shadow-2xl text-center">
+                    <span class="text-6xl mb-4 block" role="img" aria-label="Sealed Box">📦</span>
                     <p class="text-xl text-gray-700 dark:text-gray-300 font-medium">The external portal is currently sealed for quantum coherence.</p>
                     <p class="mt-4 text-base text-gray-500 dark:text-gray-400">No observations or inquiries are permitted at this time.</p>
-</div>
-</section>
-            
-            <!-- MORE Section (FAQ) -->
-<section id="tab-more" class="tab-content hidden opacity-0">
-<h2 class="text-4xl font-bold mb-8 border-b-2 pb-2 border-accent-light dark:border-accent-dark">More Paradoxes and FAQs</h2>
-<div class="space-y-4">
-                    <!-- FAQ Item 1 -->
-<div class="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md transition duration-300 hover:shadow-xl">
-<h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Q: Am I truly a cat, or merely a statistical distribution?</h3>
-<p class="text-gray-700 dark:text-gray-400">A: While technically a function of probability, for the sake of purring and chasing laser pointers, you may assume the latter. Both states are valid, but only one requires head scratches.</p>
-</div>
-                    <!-- FAQ Item 2 -->
-<div class="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md transition duration-300 hover:shadow-xl">
-<h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Q: What happens if I use the Many-Worlds Interpretation?</h3>
-                        <p class="text-700 dark:text-gray-400">A: In that scenario, you are alive in one universe and dead in another, and both universes are equally real. You just don't have to talk about it with the first one.</p>
+                </div>
+            </section>
+            <section id="tab-more" class="tab-content hidden opacity-0">
+                <h2 class="text-4xl font-bold mb-8 border-b-2 pb-2 border-accent-light dark:border-accent-dark">More Paradoxes and FAQs</h2>
+                <div class="space-y-4">
+                    <div class="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md transition duration-300 hover:shadow-xl">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Q: Am I truly a cat, or merely a statistical distribution?</h3>
+                        <p class="text-gray-700 dark:text-gray-400">A: While technically a function of probability, for the sake of purring and chasing laser pointers, you may assume the latter. Both states are valid, but only one requires head scratches.</p>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md transition duration-300 hover:shadow-xl">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Q: What happens if I use the Many-Worlds Interpretation?</h3>
                         <p class="text-gray-700 dark:text-gray-400">A: In that scenario, you are alive in one universe and dead in another, and both universes are equally real. You just don't have to talk about it with the first one.</p>
-</div>
-                    <!-- FAQ Item 3 -->
-<div class="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md transition duration-300 hover:shadow-xl">
-<h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Q: Do I get fed?</h3>
-<p class="text-gray-700 dark:text-gray-400">A: Feeding is a time-dependent, observer-influenced process, subject to the laws of entropy and Schrödinger's lunch schedule. (The answer is yes, sometimes.)</p>
-</div>
-</div>
-</section>
-
-</main>
-
-        <!-- Footer: Now includes social media icons and the new Live Timestamp -->
-<footer class="mt-16 text-center text-sm text-gray-500 dark:text-gray-600 border-t border-gray-300 dark:border-gray-700 pt-4 pb-8">
-            
-            <!-- Social Icons Container -->
-<div class="flex justify-center space-x-8 mb-4">
-                <!-- YouTube (Brand icon) -->
-                <a href="https://youtube.com/@ErwinSchrodingerCat" target="_blank" aria-label="YouTube Channel" class="text-3xl text-red-600 dark:text-red-400 hover:scale-125 transition-transform duration-200" title="YouTube">
-                    <i class="fab fa-youtube"></i>
-                </a>
-                <!-- Instagram (Brand icon - uses Pink accent color) -->
-                <a href="https://instagram.com/ErwinSchrodingerCat" target="_blank" aria-label="Instagram Profile" class="text-3xl text-pink-500 dark:text-accent-dark hover:scale-125 transition-transform duration-200" title="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <!-- Telegram (Brand icon - uses Blue accent color) - ADJUSTED SIZE -->
-                <a href="https://t.me/ErwinSchrodingerCat" target="_blank" aria-label="Telegram Channel" class="text-2xl text-blue-500 dark:text-accent-light hover:scale-125 transition-transform duration-200" title="Telegram">
-                    <i class="fab fa-telegram-plane"></i>
-                </a>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md transition duration-300 hover:shadow-xl">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Q: Do I get fed?</h3>
+                        <p class="text-gray-700 dark:text-gray-400">A: Feeding is a time-dependent, observer-influenced process, subject to the laws of entropy and Schrödinger's lunch schedule. (The answer is yes, sometimes.)</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer class="mt-16 text-center text-sm text-gray-500 dark:text-gray-600 border-t border-gray-300 dark:border-gray-700 pt-4 pb-8">
+            <div class="flex justify-center space-x-8 mb-4">
                 <a href="https://youtube.com/@ErwinSchrodingerCat" target="_blank" aria-label="YouTube Channel" class="text-3xl text-red-600 dark:text-red-400 hover:scale-125 transition-transform duration-200" title="YouTube"><i class="fab fa-youtube"></i></a>
                 <a href="https://instagram.com/ErwinSchrodingerCat" target="_blank" aria-label="Instagram Profile" class="text-3xl text-pink-500 dark:text-accent-dark hover:scale-125 transition-transform duration-200" title="Instagram"><i class="fab fa-instagram"></i></a>
                 <a href="https://t.me/ErwinSchrodingerCat" target="_blank" aria-label="Telegram Channel" class="text-2xl text-blue-500 dark:text-accent-light hover:scale-125 transition-transform duration-200" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
-</div>
-
-            <!-- Copyright Text -->
-<p>&copy; 2025 Erwin Schrödinger's Cat. Unauthorized observation is discouraged but inevitable.</p>
-            
-            <!-- Visitor Count and Live Timestamp Container -->
-<div class="mt-2 space-y-1">
-                 <!-- Visitor Count Placeholder -->
-                <p id="visitor-count" class="text-sm font-semibold text-gray-700 dark:text-gray-300">
-                    VISITORS: Loading...
-                </p>
-                <!-- Live Timestamp Placeholder (Using Monospace style) -->
-<p id="live-timestamp" class="mt-1 text-xs italic opacity-80"></p>
-</div>
-</footer>
-</div>
-
-    <!-- Firebase Imports and Logic (Module Script) -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, onSnapshot, updateDoc, increment, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        // import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js"; // Optional for debugging
-
-        // Global Firebase variables provided by the Canvas environment (works here, not on GitHub Pages)
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-        
-        // =========================================================================
-        // === STEP 3: REPLACE THESE WITH YOUR ACTUAL FIREBASE CONFIGURATION KEYS ===
-        // =========================================================================
-        // This configuration is used when the app runs live on a public host like GitHub Pages.
-        // NOTE: The redundant definition was removed to fix the 'already declared' error.
-        const LIVE_FIREBASE_CONFIG = {
-            apiKey: "AIzaSyCoX-9pMl4xTDEqVROXDsfS47PbYhhLsIs",
-            authDomain: "schrodinger-cat-523ec.firebaseapp.com",
-            projectId: "schrodinger-cat-523ec",
-            storageBucket: "schrodinger-cat-523ec.firebasestorage.app",
-            messagingSenderId: "154913099287",
-            appId: "1:154913099287:web:eeb9e26e17339e93ee9652",
-            measurementId: "G-00798EFXC6"
-        };
-
-
-        // Use the Canvas-provided config if available, otherwise use the live config object
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : LIVE_FIREBASE_CONFIG;
-        
-
-        let db, auth;
-
-        // Function to initialize Firebase and handle visitor count
-        async function initFirebase() {
-            try {
-                // setLogLevel('Debug'); // Uncomment for debugging
-                const appInstance = initializeApp(firebaseConfig);
-                db = getFirestore(appInstance);
-                auth = getAuth(appInstance);
-
-                // 1. Authenticate (required for Firestore rules)
-                // On GitHub Pages, initialAuthToken will be null, so it signs in anonymously
-                if (initialAuthToken) {
-                    await signInWithCustomToken(auth, initialAuthToken);
-                } else {
-                    await signInAnonymously(auth);
-                }
-                
-                // Reference to the global public counter document
-                // NOTE: We use a placeholder 'default-app-id' for GitHub Pages since __app_id is null
-                const actualAppId = appId === 'default-app-id' ? 'schrodinger-app' : appId; // Use a fixed ID for simplicity
-                const countRef = doc(db, 'artifacts', actualAppId, 'public/data/siteCounters', 'schrodinger_visits');
-                
-                // 2. Increment Counter (Only once per session)
-                if (!sessionStorage.getItem('schrodinger_visited')) {
-                    
-                    // Check if the document exists before trying to update/increment
-                    const docSnap = await getDoc(countRef);
-                    
-                    if (docSnap.exists()) {
-                        // Document exists, safely increment
-                        await updateDoc(countRef, {
-                            count: increment(1)
-                        });
-                    } else {
-                        // Document does not exist, create it with initial count 1
-                        await setDoc(countRef, {
-                            count: 1,
-                            createdAt: new Date().toISOString()
-                        });
-                    }
-                    
-                    sessionStorage.setItem('schrodinger_visited', 'true');
-                }
-                
-                // 3. Listen for real-time updates and display
-                onSnapshot(countRef, (docSnap) => {
-                    const countDisplay = document.getElementById('visitor-count');
-                    // Use accent colors for the count number
-                    const accentColorClass = document.documentElement.classList.contains('dark') ? 'dark:text-accent-dark' : 'text-accent-light';
-
-                    if (docSnap.exists()) {
-                        const count = docSnap.data().count || 0;
-                        countDisplay.innerHTML = `VISITORS: <span class="font-extrabold ${accentColorClass}">${count.toLocaleString()}</span>`;
-                    } else {
-                        countDisplay.innerHTML = `VISITORS: <span class="text-red-500">ERROR (DOC MISSING)</span>`;
-                    }
-                }, (error) => {
-                    console.error("Error listening to counter snapshot:", error);
-                    document.getElementById('visitor-count').textContent = 'VISITORS: Connection Failed';
-                });
-                
-            } catch (error) {
-                console.error("Firebase initialization or visitor count failed:", error);
-                const countDisplay = document.getElementById('visitor-count');
-                countDisplay.textContent = 'VISITORS: ERROR';
-            }
-        }
-
-        // Attach the init function to the global app object
-        // NOTE: This was moved outside the function to ensure 'window.app' can call it.
-        if (window.app) {
-             window.app.initFirebase = initFirebase;
-        } else {
-             window.app = { initFirebase: initFirebase };
-        }
-       
-    </script>
-
-
-    <!-- Main JavaScript for Interactivity and Themes -->
-<script>
-        // Ensure window.app exists before defining functions in case module script hasn't run yet
-        if (typeof window.app === 'undefined') {
-            window.app = {};
-        }
-
+            </div>
+            <p>&copy; 2025 Erwin Schrödinger's Cat. Unauthorized observation is discouraged but inevitable.</p>
+            <div class="mt-2 space-y-1">
+                <p id="live-timestamp" class="mt-1 text-xs italic opacity-80"></p>
+            </div>
+        </footer>
+    </div>
+    <script>
         if (typeof window.app === 'undefined') window.app = {};
-const app = {
-            // Merge existing functions with the new initFirebase if it exists
-            ...window.app, 
-currentTab: 'home',
-            
-            init: function() {
-                // Check if initFirebase has been attached from the module script
-                if (this.initFirebase && typeof this.initFirebase === 'function') {
-                    this.initFirebase();
-                } else {
-                    // This console error message is now expected only if the module script completely failed to load,
-                    // which is much less likely than before.
-                    console.error("Firebase module not loaded or initFirebase function not available.");
-                }
-                
+        const app = {
+            currentTab: 'home',
             init: function(){
-this.setupTheme();
-this.setupNavigation();
-                this.startMeowLoop(); 
+                this.setupTheme();
+                this.setupNavigation();
                 this.startMeowLoop();
-this.initCountdown();
-this.updateLiveTimestamp();
-},
-
-            // --- UI FUNCTIONS ---
-            setupTheme: function() {
+                this.initCountdown();
+                this.updateLiveTimestamp();
+            },
             setupTheme: function(){
-const toggleButton = document.getElementById('theme-toggle');
-const html = document.documentElement;
-const savedTheme = localStorage.getItem('theme');
-
-                if (savedTheme === 'light') {
-                    html.classList.remove('dark');
-                } else if (savedTheme === 'dark') {
-                    html.classList.add('dark');
-                } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                     html.classList.add('dark');
-                } else {
-                     html.classList.remove('dark');
-                }
-
+                const toggleButton = document.getElementById('theme-toggle');
+                const html = document.documentElement;
+                const savedTheme = localStorage.getItem('theme');
                 if (savedTheme === 'light') html.classList.remove('dark');
                 else if (savedTheme === 'dark') html.classList.add('dark');
                 else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) html.classList.add('dark');
                 else html.classList.remove('dark');
-this.updateThemeIcon();
-
-                toggleButton.addEventListener('click', () => {
-                    const isDark = html.classList.toggle('dark');
-                    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-                    this.updateThemeIcon();
-                });
+                this.updateThemeIcon();
                 if (toggleButton) toggleButton.addEventListener('click', ()=>{ const isDark = html.classList.toggle('dark'); localStorage.setItem('theme', isDark ? 'dark' : 'light'); this.updateThemeIcon(); });
-},
-
-            updateThemeIcon: function() {
+            },
             updateThemeIcon: function(){
-const html = document.documentElement;
-const isDark = html.classList.contains('dark');
-                document.getElementById('sun-icon').classList.toggle('hidden', !isDark); 
-                document.getElementById('moon-icon').classList.toggle('hidden', isDark);
+                const html = document.documentElement;
+                const isDark = html.classList.contains('dark');
                 const sun = document.getElementById('sun-icon');
                 const moon = document.getElementById('moon-icon');
                 if (sun) sun.classList.toggle('hidden', !isDark);
                 if (moon) moon.classList.toggle('hidden', isDark);
-},
-            
-            setupNavigation: function() {
+            },
             setupNavigation: function(){
-const tabs = document.querySelectorAll('.tab-link');
-let initialTab = window.location.hash.substring(1);
-                const validTabs = Array.from(tabs).map(t => t.dataset.tab);
-                if (!validTabs.includes(initialTab)) {
-                    initialTab = 'home';
-                    history.replaceState(null, null, '#' + initialTab);
-                }
-                
+                const tabs = document.querySelectorAll('.tab-link');
+                let initialTab = window.location.hash.substring(1);
                 const validTabs = Array.from(tabs).map(t=>t.dataset.tab);
                 if (!validTabs.includes(initialTab)) { initialTab = 'home'; if (history && history.replaceState) history.replaceState(null, null, '#'+initialTab); }
-this.switchTab(initialTab);
-
-                tabs.forEach(tab => {
-                    tab.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        const targetTab = e.currentTarget.dataset.tab;
-                        this.switchTab(targetTab);
-                        history.pushState(null, null, '#' + targetTab);
-                    });
-                });
+                this.switchTab(initialTab);
                 tabs.forEach(tab=>{ tab.addEventListener('click',(e)=>{ e.preventDefault(); const targetTab = e.currentTarget.dataset.tab; this.switchTab(targetTab); if (history && history.pushState) history.pushState(null, null, '#'+targetTab); }); });
-},
-
-            switchTab: function(tabName) {
+            },
             switchTab: function(tabName){
-this.currentTab = tabName;
-const contents = document.querySelectorAll('.tab-content');
-const links = document.querySelectorAll('.tab-link');
-
-                contents.forEach(content => {
-                    const targetId = `tab-${tabName}`;
-                    content.classList.add('hidden', 'opacity-0');
-                    
-                    if (content.id === targetId) {
-                        content.classList.remove('hidden');
-                        setTimeout(() => content.classList.add('opacity-100'), 10);
-                        setTimeout(() => content.classList.remove('opacity-0'), 10);
-                    }
-                });
-
-                links.forEach(link => {
-                    link.classList.remove('active-tab', 'text-accent-light', 'dark:text-accent-dark');
-                    link.classList.add('text-gray-700', 'dark:text-gray-300');
-                    
-                    if (link.dataset.tab === tabName) {
-                        link.classList.add('active-tab', 'text-accent-light', 'dark:text-accent-dark');
-                        link.classList.remove('text-gray-700', 'dark:text-gray-300');
-                    }
-                });
-
-                if (tabName === 'home') {
-                    this.startFloatingCats();
-                } else {
-                    const container = document.getElementById('floating-cats');
-                    if (container) container.innerHTML = '';
-                }
+                this.currentTab = tabName;
+                const contents = document.querySelectorAll('.tab-content');
+                const links = document.querySelectorAll('.tab-link');
                 contents.forEach(content=>{ const targetId = `tab-${tabName}`; content.classList.add('hidden','opacity-0'); if (content.id === targetId){ content.classList.remove('hidden'); setTimeout(()=>content.classList.add('opacity-100'),10); setTimeout(()=>content.classList.remove('opacity-0'),10); } });
                 links.forEach(link=>{ link.classList.remove('active-tab','text-accent-light','dark:text-accent-dark'); link.classList.add('text-gray-700','dark:text-gray-300'); if (link.dataset.tab === tabName){ link.classList.add('active-tab','text-accent-light','dark:text-accent-dark'); link.classList.remove('text-gray-700','dark:text-gray-300'); } });
                 if (tabName === 'home') this.startFloatingCats(); else { const container = document.getElementById('floating-cats'); if (container) container.innerHTML = ''; }
-},
-            
-            updateLiveTimestamp: function() {
-                const display = document.getElementById('live-timestamp');
-                if (!display) return;
-
-                const updateTime = () => {
-                    const now = new Date();
-                    const formattedTime = now.toLocaleString('en-US', {
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit',
-                        timeZoneName: 'short',
-                        hour12: true
-                    });
-                    display.textContent = `LOCAL QUANTUM FLUX TIME: ${formattedTime}`;
-                };
-
-                updateTime();
-                setInterval(updateTime, 1000);
+            },
             updateLiveTimestamp: function(){
                 const display = document.getElementById('live-timestamp'); if (!display) return; const updateTime = ()=>{ const now = new Date(); const formattedTime = now.toLocaleString('en-US', { year:'numeric', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit', second:'2-digit', timeZoneName:'short', hour12:true }); display.textContent = `LOCAL QUANTUM FLUX TIME: ${formattedTime}`; }; updateTime(); setInterval(updateTime,1000);
-},
-
-            triggerMeow: function() {
-                const container = document.getElementById('meow-container');
-                const meow = document.createElement('span');
-                meow.textContent = 'meow...';
-                
-                const leftPos = Math.random() * 70 + 15; 
-                const fontSize = Math.random() * 1.5 + 1; 
-                const duration = Math.random() * 2 + 3; 
-
-                const isDark = document.documentElement.classList.contains('dark');
-                const color = isDark ? 'rgb(244, 114, 182)' : 'rgb(56, 189, 248)'; 
-                
-                meow.style.cssText = `
-                    position: absolute;
-                    top: 85%;
-                    left: ${leftPos}%;
-                    font-size: ${fontSize}rem;
-                    color: ${color};
-                    font-weight: 600;
-                    animation: float-meow ${duration}s ease-out forwards;
-                    opacity: 0;
-                    pointer-events: none;
-                    z-index: 1000;
-                    user-select: none;
-                `;
-
-                container.appendChild(meow);
-
-                setTimeout(() => {
-                    meow.remove();
-                }, duration * 1000);
+            },
             triggerMeow: function(){
                 const container = document.getElementById('meow-container'); if (!container) return; const meow = document.createElement('span'); meow.textContent = 'meow...'; const leftPos = Math.random()*70 + 15; const fontSize = Math.random()*1.5 + 1; const duration = Math.random()*2 + 3; const isDark = document.documentElement.classList.contains('dark'); const color = isDark ? 'rgb(244, 114, 182)' : 'rgb(56, 189, 248)'; meow.style.cssText = `position:absolute; top:85%; left:${leftPos}%; font-size:${fontSize}rem; color:${color}; font-weight:600; animation:float-meow ${duration}s ease-out forwards; opacity:0; pointer-events:none; z-index:1000; user-select:none;`; container.appendChild(meow); setTimeout(()=>{ meow.remove(); }, duration*1000);
-},
-
-            startMeowLoop: function() {
-                const scheduleNextMeow = () => {
-                    const randomDelay = Math.random() * 6000 + 4000; 
-                    setTimeout(() => {
-                        this.triggerMeow();
-                        scheduleNextMeow();
-                    }, randomDelay);
-                };
-                scheduleNextMeow();
+            },
             startMeowLoop: function(){
                 const scheduleNextMeow = ()=>{ const randomDelay = Math.random()*6000 + 4000; setTimeout(()=>{ this.triggerMeow(); scheduleNextMeow(); }, randomDelay); }; scheduleNextMeow();
-},
-
-            triggerFloatingElement: function() {
-                const container = document.getElementById('floating-cats');
-                if (!container) return; 
-
-                const elements = ['🐾', '🐈', 'Purr', 'Meow!', '😺', 'Quantum', 'Collapse'];
-                const content = elements[Math.floor(Math.random() * elements.length)];
-                
-                const element = document.createElement('span');
-                element.textContent = content;
-                
-                const topPos = Math.random() * 80 + 10;
-                const fontSize = Math.random() * 1.5 + 1;
-                const duration = Math.random() * 5 + 15;
-
-                const isDark = document.documentElement.classList.contains('dark');
-                const color = isDark ? 'rgba(244, 114, 182, 0.15)' : 'rgba(56, 189, 248, 0.1)'; 
-                
-                element.style.cssText = `
-                    position: absolute;
-                    top: ${topPos}%; 
-                    left: 0; 
-                    font-size: ${fontSize}rem;
-                    color: ${color};
-                    font-weight: 700;
-                    white-space: nowrap;
-                    animation: float-horizontal ${duration}s linear forwards; 
-                    pointer-events: none;
-                    user-select: none;
-                    transform: translateX(-100%);
-                `;
-
-                container.appendChild(element);
-
-                setTimeout(() => {
-                    element.remove();
-                }, duration * 1000);
+            },
             triggerFloatingElement: function(){
                 const container = document.getElementById('floating-cats'); if (!container) return; const elements = ['🐾','🐈','Purr','Meow!','😺','Quantum','Collapse']; const content = elements[Math.floor(Math.random()*elements.length)]; const element = document.createElement('span'); element.textContent = content; const topPos = Math.random()*80 + 10; const fontSize = Math.random()*1.5 + 1; const duration = Math.random()*5 + 15; const isDark = document.documentElement.classList.contains('dark'); const color = isDark ? 'rgba(244, 114, 182, 0.15)' : 'rgba(56, 189, 248, 0.1)'; element.style.cssText = `position:absolute; top:${topPos}%; left:0; font-size:${fontSize}rem; color:${color}; font-weight:700; white-space:nowrap; animation:float-horizontal ${duration}s linear forwards; pointer-events:none; user-select:none; transform:translateX(-100%);`; container.appendChild(element); setTimeout(()=>{ element.remove(); }, duration*1000);
-},
-
-            startFloatingCats: function() {
-                if (this._catTimer) {
-                    clearTimeout(this._catTimer);
-                }
-
-                const scheduleNext = () => {
-                    if (this.currentTab !== 'home') {
-                        return; 
-                    }
-                    this.triggerFloatingElement();
-                    const randomDelay = Math.random() * 1500 + 1500; 
-                    this._catTimer = setTimeout(scheduleNext, randomDelay);
-                };
-                
+            },
             startFloatingCats: function(){
                 if (this._catTimer) clearTimeout(this._catTimer);
                 const scheduleNext = ()=>{ if (this.currentTab !== 'home') return; this.triggerFloatingElement(); const randomDelay = Math.random()*1500 + 1500; this._catTimer = setTimeout(scheduleNext, randomDelay); };
-scheduleNext();
-},
-
-            initCountdown: function() {
-                const targetDate = new Date("2025-11-10T00:00:00").getTime();
-                const countdownDisplay = document.getElementById('countdown-display');
-
-                const updateCountdown = () => {
-                    const now = new Date().getTime();
-                    const distance = targetDate - now;
-
-                    if (distance < 0) {
-                        countdownDisplay.innerHTML = "<span class='text-4xl'>EXAM IS LIVE! Good luck. 📚</span>";
-                        clearInterval(interval);
-                        return;
-                    }
-
-                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                    const formatUnit = (value, unit) => 
-                        `${value} <span class="text-sm font-normal text-gray-700 dark:text-gray-300">${unit}</span>`;
-
-                    countdownDisplay.innerHTML = `
-                        ${formatUnit(days, 'DAYS')} &middot; 
-                        ${formatUnit(hours.toString().padStart(2, '0'), 'HRS')} &middot; 
-                        ${formatUnit(minutes.toString().padStart(2, '0'), 'MIN')} &middot; 
-                        ${formatUnit(seconds.toString().padStart(2, '0'), 'SEC')}
-                    `;
-                }
-
-                updateCountdown();
-                const interval = setInterval(updateCountdown, 1000);
+                scheduleNext();
+            },
             initCountdown: function(){
                 const targetDate = new Date('2025-11-10T00:00:00').getTime(); const countdownDisplay = document.getElementById('countdown-display'); if (!countdownDisplay) return; const updateCountdown = ()=>{ const now = Date.now(); const distance = targetDate - now; if (distance < 0){ countdownDisplay.innerHTML = "<span class='text-4xl'>EXAM IS LIVE! Good luck. 📚</span>"; clearInterval(interval); return; } const days = Math.floor(distance / (1000*60*60*24)); const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60)); const minutes = Math.floor((distance % (1000*60*60)) / (1000*60)); const seconds = Math.floor((distance % (1000*60)) / 1000); const formatUnit = (value, unit) => `${value} <span class="text-sm font-normal text-gray-700 dark:text-gray-300">${unit}</span>`; countdownDisplay.innerHTML = `${formatUnit(days,'DAYS')} &middot; ${formatUnit(hours.toString().padStart(2,'0'),'HRS')} &middot; ${formatUnit(minutes.toString().padStart(2,'0'),'MIN')} &middot; ${formatUnit(seconds.toString().padStart(2,'0'),'SEC')}`; };
                 updateCountdown(); const interval = setInterval(updateCountdown, 1000);
-}
-};
-
-        // Replace window.app with the newly constructed object
-        window.app = app; 
-
-        // Initialize the app on window load
-        window.onload = function() {
-            app.init();
+            }
         };
         window.app = app;
         window.addEventListener('DOMContentLoaded', ()=>{ app.init(); });
-</script>
+    </script>
 </body>
 </html>
+
