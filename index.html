@@ -1,208 +1,144 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schrödinger's Cat: The Quantum Portal</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
-        body { font-family: 'Inter', sans-serif; transition: background-color 0.5s ease, color 0.5s ease; }
-        @keyframes pulse-duality { 0%,100%{ transform: scale(1); opacity: .8 } 50%{ transform: scale(1.05); opacity: 1 } }
-        .animate-duality{ animation: pulse-duality 3s infinite ease-in-out }
-        @keyframes rotate-gentle { from{ transform: rotate(0deg) } to{ transform: rotate(360deg) } }
-        .animate-rotate-slow{ animation: rotate-gentle 60s linear infinite }
-        @keyframes float-meow { 0%{ transform: translate(-50%,0); opacity:0 } 10%{ opacity:.8 } 80%{ transform: translate(-50%,-100px); opacity:.5 } 100%{ transform: translate(-50%,-150px); opacity:0 } }
-        @keyframes float-horizontal { 0%{ transform: translateX(-100%) } 100%{ transform: translateX(100vw) } }
-        .container-main{ max-width:1200px; margin:0 auto }
-        .active-tab{ position:relative }
-        .active-tab::after{ content:''; position:absolute; bottom:-8px; left:50%; transform:translateX(-50%); width:80%; height:3px; background-color:currentColor; border-radius:9999px; transition:width .3s ease }
-        .tab-content{ transition:opacity .5s ease }
-        .opacity-0{ opacity:0 }
-        .opacity-100{ opacity:1 }
-        #live-timestamp{ font-family:'Roboto Mono', monospace; letter-spacing:.05em; --tw-text-opacity:.8; font-size:.75rem }
-        .dark #live-timestamp{ color: rgb(253 224 71 / var(--tw-text-opacity)) }
-    </style>
-    <script>
-        tailwind.config = { darkMode: 'class', theme: { extend: { colors: { 'quantum-light': 'rgb(245, 245, 250)', 'accent-dark': 'rgb(244, 114, 182)', 'accent-light': 'rgb(56, 189, 248)' } } } }
-    </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Who is Schrödinger's Cat? | Quantum Experience</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { color-scheme: dark; }
+
+    body {
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(56, 189, 248, 0.28), transparent 50%),
+        radial-gradient(1000px 500px at 90% 0%, rgba(167, 139, 250, 0.25), transparent 45%),
+        radial-gradient(800px 480px at 50% 100%, rgba(244, 114, 182, 0.2), transparent 50%),
+        #020617;
+    }
+
+    .mesh {
+      background-image:
+        linear-gradient(rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+
+    .panel {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.86), rgba(30, 41, 59, 0.55));
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      backdrop-filter: blur(10px);
+    }
+
+    .shine {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .shine::after {
+      content: "";
+      position: absolute;
+      inset: -40% -80%;
+      transform: rotate(12deg);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+      animation: sweep 8s linear infinite;
+    }
+
+    @keyframes sweep {
+      0% { transform: translateX(-70%) rotate(12deg); }
+      100% { transform: translateX(70%) rotate(12deg); }
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -1.38rem;
+      top: 0.42rem;
+      width: 0.68rem;
+      height: 0.68rem;
+      border-radius: 9999px;
+      background: rgb(56, 189, 248);
+      box-shadow: 0 0 0 6px rgba(56, 189, 248, 0.16);
+    }
+  </style>
 </head>
-<body class="bg-quantum-light text-gray-900 dark:bg-gray-900 dark:text-quantum-light min-h-screen">
-    <div id="meow-container" class="fixed inset-0 pointer-events-none z-50"></div>
-    <div id="app" class="container-main p-4 md:p-8">
-        <header class="flex flex-col md:flex-row justify-between items-center py-4 md:py-8 border-b border-gray-300 dark:border-gray-700">
-            <h1 class="text-3xl font-extrabold text-accent-light dark:text-accent-dark tracking-tighter transition duration-500">Schrödinger's Cat</h1>
-            <nav id="nav-tabs" class="flex flex-wrap justify-center space-x-4 md:space-x-8 mt-4 md:mt-0 text-lg font-medium">
-                <a href="#home" data-tab="home" class="tab-link text-gray-700 dark:text-gray-300 hover:text-accent-light dark:hover:text-accent-dark transition duration-300 pb-2">Home</a>
-                <a href="#news" data-tab="news" class="tab-link text-gray-700 dark:text-gray-300 hover:text-accent-light dark:hover:text-accent-dark transition duration-300 pb-2">News</a>
-                <a href="#about" data-tab="about" class="tab-link text-gray-700 dark:text-gray-300 hover:text-accent-light dark:hover:text-accent-dark transition duration-300 pb-2">About</a>
-                <a href="#contact" data-tab="contact" class="tab-link text-gray-700 dark:text-gray-300 hover:text-accent-light dark:hover:text-accent-dark transition duration-300 pb-2">Contact</a>
-                <a href="#more" data-tab="more" class="tab-link text-gray-700 dark:text-gray-300 hover:text-accent-light dark:hover:text-accent-dark transition duration-300 pb-2">More</a>
-            </nav>
-            <button id="theme-toggle" class="mt-4 md:mt-0 p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:scale-110 transition transform duration-300 shadow-md">
-                <svg id="sun-icon" class="w-6 h-6 text-yellow-500 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                <svg id="moon-icon" class="w-6 h-6 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-            </button>
-        </header>
-        <main id="content-container" class="mt-12">
-            <section id="tab-home" class="tab-content opacity-100 relative overflow-hidden">
-                <div id="floating-cats" class="absolute inset-0 pointer-events-none z-0 overflow-hidden"></div>
-                <div class="text-center relative z-10">
-                    <div id="al-countdown" class="mb-10 p-4 rounded-xl bg-gray-200/50 dark:bg-gray-800/70 border border-dashed border-accent-light/50 dark:border-accent-dark/50 max-w-lg mx-auto shadow-inner">
-                        <p class="text-lg font-bold uppercase tracking-wider mb-2 text-gray-700 dark:text-gray-300">2025 A/L Exam Live Countdown</p>
-                        <div id="countdown-display" class="text-3xl font-extrabold text-red-500 dark:text-yellow-400">Loading...</div>
-                    </div>
-                    <div class="flex justify-center items-center mb-10">
-                        <div class="relative w-64 h-64 md:w-80 md:h-80">
-                            <div class="absolute inset-0 rounded-full border-8 border-dashed border-accent-light/50 dark:border-accent-dark/50 animate-rotate-slow"></div>
-                            <div class="absolute inset-4 md:inset-6 rounded-full bg-gradient-to-br from-cyan-300/30 to-pink-300/30 dark:from-pink-900/40 dark:to-blue-900/40 flex items-center justify-center animate-duality shadow-xl">
-                                <span class="text-4xl md:text-5xl font-extrabold text-accent-light dark:text-accent-dark">Ψ</span>
-                                <span class="absolute text-7xl md:text-9xl opacity-10">?</span>
-                            </div>
-                            <div class="absolute -top-10 left-1/2 transform -translate-x-1/2 text-2xl font-bold text-gray-700 dark:text-gray-300">SUPERPOSITION</div>
-                        </div>
-                    </div>
-                    <div class="p-6 rounded-xl bg-gray-100 dark:bg-gray-800 shadow-lg max-w-xl mx-auto">
-                        <span class="text-5xl" role="img" aria-label="Cat and Skull Emoji">😺 💀</span>
-                        <p class="mt-4 text-gray-700 dark:text-gray-400 font-medium">I am both alive and dead.</p>
-                    </div>
-                </div>
-            </section>
-            <section id="tab-news" class="tab-content hidden opacity-0">
-                <h2 class="text-4xl font-bold mb-8 border-b-2 pb-2 border-accent-light dark:border-accent-dark">Latest News</h2>
-                <div class="space-y-8">
-                    <article class="p-6 rounded-xl bg-white dark:bg-gray-800 shadow-md transition duration-300 hover:shadow-xl">
-                        <span class="text-sm font-semibold text-accent-light dark:text-accent-dark uppercase">October 2025</span>
-                        <h3 class="text-2xl font-bold my-2">Contact Portal Sealed</h3>
-                        <p class="text-gray-700 dark:text-gray-400">The external observation portal has been sealed to maintain maximum quantum coherence. All attempts to log observations are temporarily suspended.</p>
-                    </article>
-                </div>
-            </section>
-            <section id="tab-about" class="tab-content hidden opacity-0">
-                <h2 class="text-4xl font-bold mb-8 border-b-2 pb-2 border-accent-light dark:border-accent-dark">The Thought Experiment, Explained</h2>
-                <div class="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-400">
-                    <p class="text-lg">In 1935, Austrian physicist Erwin Schrödinger devised this thought experiment to illustrate the absurdity of applying the <strong>Copenhagen interpretation</strong> of quantum mechanics to macroscopic objects. He proposed a scenario involving a hypothetical cat that is simultaneously both <strong>alive and dead</strong>, due to its fate being linked to a random subatomic event.</p>
-                    <h3 class="text-3xl font-semibold mt-6 mb-4 text-gray-900 dark:text-white">The Setup</h3>
-                    <ul class="list-disc list-inside space-y-2 ml-4">
-                        <li>A sealed steel chamber containing a cat, a vial of poison, a Geiger counter, and a radioactive source.</li>
-                        <li>If a single atom decays within one hour, the Geiger counter triggers a hammer, breaking the vial, and releasing the poison.</li>
-                        <li>The quantum state of the atom (decayed or not decayed) determines the classical state of the cat (dead or alive).</li>
-                    </ul>
-                    <h3 class="text-3xl font-semibold mt-6 mb-4 text-gray-900 dark:text-white">The Implication</h3>
-                    <p class="text-lg">According to the quantum rules applied literally, until an external observer opens the box, the cat's wave function exists in a superposition of two states: <strong>50% Alive + 50% Dead</strong>. The experiment served as a brilliant critique, forcing physicists to consider where the boundary between the quantum and classical worlds actually lies.</p>
-                </div>
-            </section>
-            <section id="tab-contact" class="tab-content hidden opacity-0">
-                <h2 class="text-4xl font-bold mb-8 border-b-2 pb-2 border-accent-light dark:border-accent-dark">Inquire Within the Box</h2>
-                <div class="max-w-xl mx-auto p-8 rounded-xl bg-white dark:bg-gray-800 shadow-2xl text-center">
-                    <span class="text-6xl mb-4 block" role="img" aria-label="Sealed Box">📦</span>
-                    <p class="text-xl text-gray-700 dark:text-gray-300 font-medium">The external portal is currently sealed for quantum coherence.</p>
-                    <p class="mt-4 text-base text-gray-500 dark:text-gray-400">No observations or inquiries are permitted at this time.</p>
-                </div>
-            </section>
-            <section id="tab-more" class="tab-content hidden opacity-0">
-                <h2 class="text-4xl font-bold mb-8 border-b-2 pb-2 border-accent-light dark:border-accent-dark">More Paradoxes and FAQs</h2>
-                <div class="space-y-4">
-                    <div class="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md transition duration-300 hover:shadow-xl">
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Q: Am I truly a cat, or merely a statistical distribution?</h3>
-                        <p class="text-gray-700 dark:text-gray-400">A: While technically a function of probability, for the sake of purring and chasing laser pointers, you may assume the latter. Both states are valid, but only one requires head scratches.</p>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md transition duration-300 hover:shadow-xl">
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Q: What happens if I use the Many-Worlds Interpretation?</h3>
-                        <p class="text-gray-700 dark:text-gray-400">A: In that scenario, you are alive in one universe and dead in another, and both universes are equally real. You just don't have to talk about it with the first one.</p>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md transition duration-300 hover:shadow-xl">
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Q: Do I get fed?</h3>
-                        <p class="text-gray-700 dark:text-gray-400">A: Feeding is a time-dependent, observer-influenced process, subject to the laws of entropy and Schrödinger's lunch schedule. (The answer is yes, sometimes.)</p>
-                    </div>
-                </div>
-            </section>
-        </main>
-        <footer class="mt-16 text-center text-sm text-gray-500 dark:text-gray-600 border-t border-gray-300 dark:border-gray-700 pt-4 pb-8">
-            <div class="flex justify-center space-x-8 mb-4">
-                <a href="https://youtube.com/@ErwinSchrodingerCat" target="_blank" aria-label="YouTube Channel" class="text-3xl text-red-600 dark:text-red-400 hover:scale-125 transition-transform duration-200" title="YouTube"><i class="fab fa-youtube"></i></a>
-                <a href="https://instagram.com/ErwinSchrodingerCat" target="_blank" aria-label="Instagram Profile" class="text-3xl text-pink-500 dark:text-accent-dark hover:scale-125 transition-transform duration-200" title="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://t.me/ErwinSchrodingerCat" target="_blank" aria-label="Telegram Channel" class="text-2xl text-blue-500 dark:text-accent-light hover:scale-125 transition-transform duration-200" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
-            </div>
-            <p>&copy; 2025 Erwin Schrödinger's Cat. Unauthorized observation is discouraged but inevitable.</p>
-            <div class="mt-2 space-y-1">
-                <p id="live-timestamp" class="mt-1 text-xs italic opacity-80"></p>
-            </div>
-        </footer>
-    </div>
-    <script>
-        if (typeof window.app === 'undefined') window.app = {};
-        const app = {
-            currentTab: 'home',
-            init: function(){
-                this.setupTheme();
-                this.setupNavigation();
-                this.startMeowLoop();
-                this.initCountdown();
-                this.updateLiveTimestamp();
-            },
-            setupTheme: function(){
-                const toggleButton = document.getElementById('theme-toggle');
-                const html = document.documentElement;
-                const savedTheme = localStorage.getItem('theme');
-                if (savedTheme === 'light') html.classList.remove('dark');
-                else if (savedTheme === 'dark') html.classList.add('dark');
-                else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) html.classList.add('dark');
-                else html.classList.remove('dark');
-                this.updateThemeIcon();
-                if (toggleButton) toggleButton.addEventListener('click', ()=>{ const isDark = html.classList.toggle('dark'); localStorage.setItem('theme', isDark ? 'dark' : 'light'); this.updateThemeIcon(); });
-            },
-            updateThemeIcon: function(){
-                const html = document.documentElement;
-                const isDark = html.classList.contains('dark');
-                const sun = document.getElementById('sun-icon');
-                const moon = document.getElementById('moon-icon');
-                if (sun) sun.classList.toggle('hidden', !isDark);
-                if (moon) moon.classList.toggle('hidden', isDark);
-            },
-            setupNavigation: function(){
-                const tabs = document.querySelectorAll('.tab-link');
-                let initialTab = window.location.hash.substring(1);
-                const validTabs = Array.from(tabs).map(t=>t.dataset.tab);
-                if (!validTabs.includes(initialTab)) { initialTab = 'home'; if (history && history.replaceState) history.replaceState(null, null, '#'+initialTab); }
-                this.switchTab(initialTab);
-                tabs.forEach(tab=>{ tab.addEventListener('click',(e)=>{ e.preventDefault(); const targetTab = e.currentTarget.dataset.tab; this.switchTab(targetTab); if (history && history.pushState) history.pushState(null, null, '#'+targetTab); }); });
-            },
-            switchTab: function(tabName){
-                this.currentTab = tabName;
-                const contents = document.querySelectorAll('.tab-content');
-                const links = document.querySelectorAll('.tab-link');
-                contents.forEach(content=>{ const targetId = `tab-${tabName}`; content.classList.add('hidden','opacity-0'); if (content.id === targetId){ content.classList.remove('hidden'); setTimeout(()=>content.classList.add('opacity-100'),10); setTimeout(()=>content.classList.remove('opacity-0'),10); } });
-                links.forEach(link=>{ link.classList.remove('active-tab','text-accent-light','dark:text-accent-dark'); link.classList.add('text-gray-700','dark:text-gray-300'); if (link.dataset.tab === tabName){ link.classList.add('active-tab','text-accent-light','dark:text-accent-dark'); link.classList.remove('text-gray-700','dark:text-gray-300'); } });
-                if (tabName === 'home') this.startFloatingCats(); else { const container = document.getElementById('floating-cats'); if (container) container.innerHTML = ''; }
-            },
-            updateLiveTimestamp: function(){
-                const display = document.getElementById('live-timestamp'); if (!display) return; const updateTime = ()=>{ const now = new Date(); const formattedTime = now.toLocaleString('en-US', { year:'numeric', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit', second:'2-digit', timeZoneName:'short', hour12:true }); display.textContent = `LOCAL QUANTUM FLUX TIME: ${formattedTime}`; }; updateTime(); setInterval(updateTime,1000);
-            },
-            triggerMeow: function(){
-                const container = document.getElementById('meow-container'); if (!container) return; const meow = document.createElement('span'); meow.textContent = 'meow...'; const leftPos = Math.random()*70 + 15; const fontSize = Math.random()*1.5 + 1; const duration = Math.random()*2 + 3; const isDark = document.documentElement.classList.contains('dark'); const color = isDark ? 'rgb(244, 114, 182)' : 'rgb(56, 189, 248)'; meow.style.cssText = `position:absolute; top:85%; left:${leftPos}%; font-size:${fontSize}rem; color:${color}; font-weight:600; animation:float-meow ${duration}s ease-out forwards; opacity:0; pointer-events:none; z-index:1000; user-select:none;`; container.appendChild(meow); setTimeout(()=>{ meow.remove(); }, duration*1000);
-            },
-            startMeowLoop: function(){
-                const scheduleNextMeow = ()=>{ const randomDelay = Math.random()*6000 + 4000; setTimeout(()=>{ this.triggerMeow(); scheduleNextMeow(); }, randomDelay); }; scheduleNextMeow();
-            },
-            triggerFloatingElement: function(){
-                const container = document.getElementById('floating-cats'); if (!container) return; const elements = ['🐾','🐈','Purr','Meow!','😺','Quantum','Collapse']; const content = elements[Math.floor(Math.random()*elements.length)]; const element = document.createElement('span'); element.textContent = content; const topPos = Math.random()*80 + 10; const fontSize = Math.random()*1.5 + 1; const duration = Math.random()*5 + 15; const isDark = document.documentElement.classList.contains('dark'); const color = isDark ? 'rgba(244, 114, 182, 0.15)' : 'rgba(56, 189, 248, 0.1)'; element.style.cssText = `position:absolute; top:${topPos}%; left:0; font-size:${fontSize}rem; color:${color}; font-weight:700; white-space:nowrap; animation:float-horizontal ${duration}s linear forwards; pointer-events:none; user-select:none; transform:translateX(-100%);`; container.appendChild(element); setTimeout(()=>{ element.remove(); }, duration*1000);
-            },
-            startFloatingCats: function(){
-                if (this._catTimer) clearTimeout(this._catTimer);
-                const scheduleNext = ()=>{ if (this.currentTab !== 'home') return; this.triggerFloatingElement(); const randomDelay = Math.random()*1500 + 1500; this._catTimer = setTimeout(scheduleNext, randomDelay); };
-                scheduleNext();
-            },
-            initCountdown: function(){
-                const targetDate = new Date('2025-11-10T00:00:00').getTime(); const countdownDisplay = document.getElementById('countdown-display'); if (!countdownDisplay) return; const updateCountdown = ()=>{ const now = Date.now(); const distance = targetDate - now; if (distance < 0){ countdownDisplay.innerHTML = "<span class='text-4xl'>EXAM IS LIVE! Good luck. 📚</span>"; clearInterval(interval); return; } const days = Math.floor(distance / (1000*60*60*24)); const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60)); const minutes = Math.floor((distance % (1000*60*60)) / (1000*60)); const seconds = Math.floor((distance % (1000*60)) / 1000); const formatUnit = (value, unit) => `${value} <span class="text-sm font-normal text-gray-700 dark:text-gray-300">${unit}</span>`; countdownDisplay.innerHTML = `${formatUnit(days,'DAYS')} &middot; ${formatUnit(hours.toString().padStart(2,'0'),'HRS')} &middot; ${formatUnit(minutes.toString().padStart(2,'0'),'MIN')} &middot; ${formatUnit(seconds.toString().padStart(2,'0'),'SEC')}`; };
-                updateCountdown(); const interval = setInterval(updateCountdown, 1000);
-            }
-        };
-        window.app = app;
-        window.addEventListener('DOMContentLoaded', ()=>{ app.init(); });
-    </script>
+<body class="mesh min-h-screen text-slate-100 selection:bg-cyan-400/30">
+  <main class="mx-auto w-full max-w-7xl px-5 py-6 md:px-10 md:py-10">
+    <nav class="panel mb-6 flex items-center justify-between rounded-2xl px-4 py-3 md:px-6">
+      <p class="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-200">Quantum Classroom</p>
+      <a href="#experiment" class="rounded-lg border border-cyan-300/40 bg-cyan-300/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-cyan-100 hover:bg-cyan-300/20">Try Demo</a>
+    </nav>
+
+    <header class="panel shine rounded-3xl p-6 md:p-10">
+      <p class="inline-flex items-center rounded-full border border-violet-300/40 bg-violet-300/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-violet-200">Modern Physics Explainer</p>
+      <h1 class="mt-4 text-3xl font-black leading-tight md:text-6xl">Schrödinger's Cat, Explained Like a Pro</h1>
+      <p class="mt-4 max-w-4xl text-base text-slate-200 md:text-lg">
+        <strong>Schrödinger's cat is a thought experiment</strong> by physicist Erwin Schrödinger (1935), not a real pet in a lab.
+        It illustrates how quantum particles can exist in multiple states at once—until observation forces one outcome.
+      </p>
+      <div class="mt-6 grid gap-3 sm:grid-cols-3">
+        <div class="rounded-xl border border-emerald-300/40 bg-emerald-300/10 p-3 text-sm text-emerald-100">Superposition: two possibilities coexist.</div>
+        <div class="rounded-xl border border-cyan-300/40 bg-cyan-300/10 p-3 text-sm text-cyan-100">Measurement: the moment of observation.</div>
+        <div class="rounded-xl border border-fuchsia-300/40 bg-fuchsia-300/10 p-3 text-sm text-fuchsia-100">Collapse: one reality is selected.</div>
+      </div>
+    </header>
+
+    <section class="mt-6 grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
+      <article class="panel rounded-2xl p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-cyan-200">What happens in the thought experiment?</h2>
+        <ol class="mt-5 space-y-4 border-l border-slate-700 pl-6 text-slate-200">
+          <li class="timeline-item relative">A cat is placed in a sealed box with a radioactive source and a detector mechanism.</li>
+          <li class="timeline-item relative">If decay occurs, a trigger releases poison; if decay does not occur, the cat remains alive.</li>
+          <li class="timeline-item relative">Before opening the box, quantum interpretation describes the atom as both decayed and not decayed.</li>
+          <li class="timeline-item relative">So the cat becomes a symbol of a mixed state until observation is made.</li>
+        </ol>
+
+        <div class="mt-6 grid gap-4 md:grid-cols-2">
+          <div class="rounded-xl border border-slate-700 bg-slate-950/60 p-4">
+            <h3 class="text-sm font-semibold uppercase tracking-[0.17em] text-slate-300">Why scientists care</h3>
+            <p class="mt-2 text-sm text-slate-300">It challenges where quantum behavior ends and classical reality begins.</p>
+          </div>
+          <div class="rounded-xl border border-slate-700 bg-slate-950/60 p-4">
+            <h3 class="text-sm font-semibold uppercase tracking-[0.17em] text-slate-300">Common misunderstanding</h3>
+            <p class="mt-2 text-sm text-slate-300">It is a critique of interpretation, not a suggested real-world experiment.</p>
+          </div>
+        </div>
+      </article>
+
+      <aside class="space-y-6">
+        <section class="panel rounded-2xl p-6" id="experiment">
+          <h2 class="text-lg font-bold text-fuchsia-200">Interactive Observation Simulator</h2>
+          <p class="mt-2 text-sm text-slate-300">Press observe to collapse a simulated quantum state.</p>
+          <button id="observeBtn" class="mt-4 w-full rounded-xl border border-cyan-300/60 bg-cyan-300/15 px-4 py-3 font-semibold text-cyan-100 transition hover:bg-cyan-300/30">
+            Observe the Cat
+          </button>
+          <p id="result" class="mt-3 rounded-lg border border-slate-700 bg-slate-950/75 p-3 text-sm text-slate-300">Status: superposition active...</p>
+          <p class="mt-2 text-xs text-slate-400">Educational simulation only.</p>
+        </section>
+
+        <section class="panel rounded-2xl p-6">
+          <h2 class="text-lg font-bold text-violet-200">Fast Facts</h2>
+          <dl class="mt-4 space-y-3 text-sm">
+            <div class="flex justify-between gap-3 border-b border-slate-800 pb-2"><dt class="text-slate-400">Origin</dt><dd>1935 paper</dd></div>
+            <div class="flex justify-between gap-3 border-b border-slate-800 pb-2"><dt class="text-slate-400">Physicist</dt><dd>Erwin Schrödinger</dd></div>
+            <div class="flex justify-between gap-3 border-b border-slate-800 pb-2"><dt class="text-slate-400">Core Idea</dt><dd>Superposition</dd></div>
+            <div class="flex justify-between gap-3"><dt class="text-slate-400">Purpose</dt><dd>Interpretation debate</dd></div>
+          </dl>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    const observeBtn = document.getElementById('observeBtn');
+    const result = document.getElementById('result');
+
+    observeBtn.addEventListener('click', () => {
+      const outcomes = [
+        'Observation complete: cat measured alive in this branch.',
+        'Observation complete: cat measured not alive in this branch.'
+      ];
+      result.textContent = outcomes[Math.floor(Math.random() * outcomes.length)];
+    });
+  </script>
 </body>
 </html>
-
