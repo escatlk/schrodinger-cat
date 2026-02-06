@@ -1,93 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cat State Console</title>
+  <title>Who is Schrödinger's Cat? | Quantum Story Portal</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    :root {
+      color-scheme: dark;
+    }
+
     body {
       background:
-        radial-gradient(circle at 20% 15%, rgba(34, 211, 238, 0.2), transparent 30%),
-        radial-gradient(circle at 80% 10%, rgba(244, 114, 182, 0.2), transparent 35%),
-        radial-gradient(circle at 50% 100%, rgba(167, 139, 250, 0.25), transparent 45%),
-        #030712;
-      min-height: 100vh;
+        radial-gradient(circle at 10% 10%, rgba(56, 189, 248, 0.18), transparent 26%),
+        radial-gradient(circle at 80% 0%, rgba(129, 140, 248, 0.2), transparent 32%),
+        radial-gradient(circle at 50% 100%, rgba(192, 132, 252, 0.2), transparent 40%),
+        #020617;
     }
 
-    .scanline::before {
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    .glass {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.78), rgba(30, 41, 59, 0.5));
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    .quantum-glow {
+      box-shadow: 0 0 0 rgba(56, 189, 248, 0);
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 rgba(56, 189, 248, 0); }
+      50% { box-shadow: 0 0 34px rgba(56, 189, 248, 0.35); }
+    }
+
+    .timeline-dot::before {
       content: "";
       position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.02) 0px,
-        rgba(255, 255, 255, 0.02) 1px,
-        transparent 2px,
-        transparent 4px
-      );
-      pointer-events: none;
-      mix-blend-mode: soft-light;
-    }
-
-    @keyframes glow {
-      0%, 100% { box-shadow: 0 0 0 rgba(34, 211, 238, 0.1); }
-      50% { box-shadow: 0 0 32px rgba(34, 211, 238, 0.35); }
-    }
-
-    .glow {
-      animation: glow 3.5s ease-in-out infinite;
+      left: -0.56rem;
+      top: 0.5rem;
+      width: 0.6rem;
+      height: 0.6rem;
+      border-radius: 9999px;
+      background: rgb(56, 189, 248);
+      box-shadow: 0 0 0 5px rgba(56, 189, 248, 0.2);
     }
   </style>
 </head>
-<body class="text-slate-100 font-mono">
-  <main class="relative scanline mx-auto flex min-h-screen w-full max-w-6xl flex-col p-6 md:p-10">
-    <header class="mb-8 flex flex-wrap items-center justify-between gap-4 border-b border-cyan-400/30 pb-4">
-      <h1 class="text-2xl uppercase tracking-[0.2em] text-cyan-300 md:text-3xl">Cat State Console</h1>
-      <p class="rounded border border-fuchsia-400/50 bg-fuchsia-400/10 px-3 py-1 text-xs uppercase tracking-[0.2em] text-fuchsia-200">Observation Terminal</p>
+<body class="grid-bg text-slate-100 selection:bg-cyan-400/30">
+  <main class="mx-auto w-full max-w-7xl px-5 py-8 md:px-10 md:py-10">
+    <header class="glass quantum-glow rounded-3xl p-6 md:p-9">
+      <p class="inline-flex items-center rounded-full border border-cyan-300/50 bg-cyan-300/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-cyan-200">Quantum Explainer</p>
+      <h1 class="mt-4 text-3xl font-black leading-tight text-white md:text-5xl">Who is Schrödinger's Cat?</h1>
+      <p class="mt-4 max-w-3xl text-base text-slate-200 md:text-lg">
+        Schrödinger's cat is <strong>not a real historical cat</strong>. It is a famous thought experiment created by physicist Erwin Schrödinger in 1935 to explain how strange quantum mechanics can be when applied to everyday objects.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-3 text-sm">
+        <span class="rounded-lg border border-emerald-300/40 bg-emerald-300/10 px-3 py-1 text-emerald-200">Alive + Not Alive (before observation)</span>
+        <span class="rounded-lg border border-violet-300/40 bg-violet-300/10 px-3 py-1 text-violet-200">Superposition</span>
+        <span class="rounded-lg border border-fuchsia-300/40 bg-fuchsia-300/10 px-3 py-1 text-fuchsia-200">Wavefunction Collapse</span>
+      </div>
     </header>
 
-    <section class="grid gap-6 md:grid-cols-[1.2fr_0.8fr]">
-      <article class="glow rounded-xl border border-cyan-400/40 bg-slate-900/60 p-6 backdrop-blur">
-        <h2 class="text-sm uppercase tracking-[0.3em] text-cyan-300">Experiment Brief</h2>
-        <p class="mt-4 text-slate-200">
-          The subject remains in a blended quantum state while unobserved. Run an observation cycle to collapse the wavefunction and print the result to the system log.
-        </p>
+    <section class="mt-8 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+      <article class="glass rounded-2xl p-6 md:p-7">
+        <h2 class="text-xl font-bold text-cyan-200">The Story (Simple Version)</h2>
+        <ol class="mt-5 space-y-4 border-l border-slate-700 pl-5 text-slate-200">
+          <li class="timeline-dot relative">
+            A sealed box contains a cat, a tiny amount of radioactive material, a detector, and poison.
+          </li>
+          <li class="timeline-dot relative">
+            If one atom decays, the detector triggers and releases poison.
+          </li>
+          <li class="timeline-dot relative">
+            Quantum rules say the atom can be both decayed and not decayed before measurement.
+          </li>
+          <li class="timeline-dot relative">
+            So, in theory, the cat is in a blend of states (alive and not alive) until someone opens the box.
+          </li>
+        </ol>
 
-        <div class="mt-6 grid gap-3 sm:grid-cols-3">
-          <div class="rounded border border-emerald-400/40 bg-emerald-400/10 p-3">
-            <p class="text-xs uppercase text-emerald-200">Branch A</p>
-            <p class="mt-1 text-sm">Cat: Alive</p>
-          </div>
-          <div class="rounded border border-rose-400/40 bg-rose-400/10 p-3">
-            <p class="text-xs uppercase text-rose-200">Branch B</p>
-            <p class="mt-1 text-sm">Cat: Not Alive</p>
-          </div>
-          <div class="rounded border border-violet-400/40 bg-violet-400/10 p-3">
-            <p class="text-xs uppercase text-violet-200">Branch C</p>
-            <p class="mt-1 text-sm">Observer: Pending</p>
-          </div>
+        <div class="mt-6 rounded-xl border border-slate-700 bg-slate-950/60 p-4">
+          <h3 class="text-sm font-semibold uppercase tracking-[0.18em] text-slate-300">Why this matters</h3>
+          <p class="mt-2 text-sm text-slate-300">
+            The point is not to harm a cat. Schrödinger used this setup to challenge interpretations of quantum mechanics and show how weird microscopic physics sounds at human scale.
+          </p>
         </div>
       </article>
 
-      <aside class="rounded-xl border border-fuchsia-400/40 bg-slate-900/70 p-6">
-        <h2 class="text-sm uppercase tracking-[0.3em] text-fuchsia-200">Control Panel</h2>
-        <button id="observeBtn" class="mt-5 w-full rounded border border-cyan-300 bg-cyan-300/15 px-4 py-3 text-sm uppercase tracking-[0.2em] text-cyan-100 transition hover:bg-cyan-300/30">
-          Run Observation
-        </button>
-        <p id="result" class="mt-4 rounded border border-slate-700 bg-slate-950/80 p-3 text-sm text-slate-300">Result: Awaiting input...</p>
+      <aside class="space-y-6">
+        <div class="glass rounded-2xl p-6">
+          <h2 class="text-lg font-bold text-violet-200">Quick Facts</h2>
+          <ul class="mt-4 space-y-3 text-sm text-slate-200">
+            <li><strong>Created by:</strong> Erwin Schrödinger</li>
+            <li><strong>Year:</strong> 1935</li>
+            <li><strong>Type:</strong> Thought experiment</li>
+            <li><strong>Main concept:</strong> Superposition and measurement</li>
+          </ul>
+        </div>
 
-        <div class="mt-5 space-y-2 text-xs text-slate-400">
-          <p>• Detector status: armed</p>
-          <p>• Box seal: intact</p>
-          <p>• Entanglement drift: stable</p>
+        <div class="glass rounded-2xl p-6">
+          <h2 class="text-lg font-bold text-fuchsia-200">Try the Quantum Box</h2>
+          <p class="mt-2 text-sm text-slate-300">Click observe to collapse the simulated state.</p>
+          <button id="observeBtn" class="mt-4 w-full rounded-xl border border-cyan-300/50 bg-cyan-300/15 px-4 py-3 font-semibold text-cyan-100 transition hover:bg-cyan-300/30">
+            Observe the Cat
+          </button>
+          <p id="result" class="mt-3 rounded-lg border border-slate-700 bg-slate-950/70 p-3 text-sm text-slate-300">Status: waiting for observation...</p>
+          <p id="note" class="mt-2 text-xs text-slate-400">Reminder: This is a teaching simulation, not a real experiment.</p>
         </div>
       </aside>
     </section>
-
-    <footer class="mt-auto pt-8 text-xs uppercase tracking-[0.18em] text-slate-500">
-      Schrödinger Lab • Simulation Build 02
-    </footer>
   </main>
 
   <script>
@@ -95,12 +124,12 @@
     const result = document.getElementById('result');
 
     observeBtn.addEventListener('click', () => {
-      const states = [
-        'Result: Cat detected alive. Probability branch A locked.',
-        'Result: Cat detected not alive. Probability branch B locked.'
+      const outcomes = [
+        'Observation complete: The cat is alive in this measured branch.',
+        'Observation complete: The cat is not alive in this measured branch.'
       ];
-      const pick = states[Math.floor(Math.random() * states.length)];
-      result.textContent = pick;
+      const selected = outcomes[Math.floor(Math.random() * outcomes.length)];
+      result.textContent = selected;
     });
   </script>
 </body>
