@@ -22,39 +22,6 @@
         position: relative;
     }
 
-    /* Star container */
-    .star {
-        position: absolute;
-        width: 2px;
-        height: 2px;
-        background: white;
-        border-radius: 50%;
-        opacity: 0.8;
-        animation: twinkle linear infinite;
-    }
-
-    @keyframes twinkle {
-        0%, 100% { opacity: 0.3; }
-        50% { opacity: 1; }
-    }
-
-    /* Shooting star */
-    .shooting-star {
-        position: absolute;
-        width: 2px;
-        height: 2px;
-        background: white;
-        box-shadow: 0 0 6px #fff;
-        border-radius: 50%;
-        animation: shooting linear infinite;
-    }
-
-    @keyframes shooting {
-        0% { transform: translate(-100px, 0) scaleX(1); opacity: 0; }
-        10% { opacity: 1; }
-        100% { transform: translate(100vw, 100vh) scaleX(3); opacity: 0; }
-    }
-
     /* Nebula clouds */
     .nebula {
         position: absolute;
@@ -72,37 +39,58 @@
         100% { transform: translate(50px, 30px) scale(1.1); }
     }
 
+    /* Stars */
+    .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        opacity: 0.8;
+        animation: twinkle linear infinite;
+    }
+
+    @keyframes twinkle {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 1; }
+    }
+
+    /* Shooting stars */
+    .shooting-star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: white;
+        box-shadow: 0 0 6px #fff;
+        border-radius: 50%;
+        animation: shooting linear infinite;
+    }
+
+    @keyframes shooting {
+        0% { transform: translate(-100px, 0) scaleX(1); opacity: 0; }
+        10% { opacity: 1; }
+        100% { transform: translate(100vw, 100vh) scaleX(3); opacity: 0; }
+    }
+
     .end-screen {
         text-align: center;
         z-index: 10;
     }
 
-    /* Calm float animation for Name + glowing effect */
+    /* Name with calm float + glowing effect */
     .name {
         font-size: 2.4rem;
         letter-spacing: 3px;
         margin-bottom: 14px;
-        color: #6cf2c2;
-        animation: calmFloat 4s ease-in-out infinite, glowText 3s ease-in-out infinite alternate;
+        color: #ffffff;
+        text-shadow: 0 0 8px #ffffff, 0 0 16px #6cf2c2, 0 0 24px #6cf2c2;
+        animation: calmFloat 4s ease-in-out infinite;
     }
 
     @keyframes calmFloat {
         0% { transform: translateY(0); }
         50% { transform: translateY(-8px); }
         100% { transform: translateY(0); }
-    }
-
-    @keyframes glowText {
-        0% {
-            text-shadow: 0 0 8px rgba(108,242,194,0.4),
-                         0 0 16px rgba(108,242,194,0.3),
-                         0 0 24px rgba(108,242,194,0.2);
-        }
-        100% {
-            text-shadow: 0 0 16px rgba(108,242,194,0.7),
-                         0 0 32px rgba(108,242,194,0.5),
-                         0 0 48px rgba(108,242,194,0.3);
-        }
     }
 
     .copyright {
@@ -117,7 +105,7 @@
 <!-- Nebula clouds -->
 <div class="nebula"></div>
 
-<!-- Stars generated dynamically with random positions -->
+<!-- Stars generated dynamically -->
 <script>
     const starCount = 150;
     for (let i = 0; i < starCount; i++) {
@@ -132,7 +120,6 @@
         document.body.appendChild(star);
     }
 
-    // Shooting stars
     const shootingCount = 5;
     for (let i = 0; i < shootingCount; i++) {
         const s = document.createElement('div');
