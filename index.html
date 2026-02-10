@@ -1,125 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Erwin Schrödinger's Cat</title>
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Segoe UI", Arial, sans-serif;
-    }
+    <meta charset="UTF-8">
+    <title>Erwin Schrödinger's Cat</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
 
-    body {
-        height: 100vh;
-        background: radial-gradient(circle at bottom, #1a1b2c, #0d0e18);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        color: #fff;
-        position: relative;
-    }
+        body {
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(ellipse at bottom, #1c1f3a 0%, #000 100%);
+            color: #ffffff;
+        }
 
-    /* Floating sparkles */
-    .sparkle {
-        position: absolute;
-        width: 6px;
-        height: 6px;
-        background: #ffd36c;
-        border-radius: 50%;
-        opacity: 0.7;
-        animation: sparkleMove 10s linear infinite;
-    }
+        /* Starry sky */
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: twinkle linear infinite;
+        }
 
-    .sparkle:nth-child(1) { left: 10%; animation-delay: 0s; }
-    .sparkle:nth-child(2) { left: 40%; animation-delay: 3s; background:#6cf2c2; }
-    .sparkle:nth-child(3) { left: 70%; animation-delay: 5s; background:#ff9ac1; }
-    .sparkle:nth-child(4) { left: 80%; animation-delay: 1s; }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
 
-    @keyframes sparkleMove {
-        0% { transform: translateY(100vh) scale(0); opacity:0; }
-        20% { opacity:0.7; scale(1); }
-        100% { transform: translateY(-10vh) scale(0.5); opacity:0; }
-    }
+        /* Shooting star */
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            box-shadow: 0 0 6px #fff;
+            border-radius: 50%;
+            animation: shooting linear infinite;
+        }
 
-    .end-screen {
-        text-align: center;
-        animation: fadeUp 2s ease forwards;
-        z-index: 1;
-        position: relative;
-    }
+        @keyframes shooting {
+            0% { transform: translate(-100px, 0) scaleX(1); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translate(100vw, 100vh) scaleX(3); opacity: 0; }
+        }
 
-    @keyframes fadeUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
+        /* Cat silhouette */
+        .cat {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #6cf2c2;
+            clip-path: polygon(
+                50% 0%, 60% 20%, 70% 20%, 75% 40%, 60% 50%, 
+                65% 70%, 50% 60%, 35% 70%, 40% 50%, 25% 40%, 
+                30% 20%, 40% 20%
+            );
+            animation: catFloat 6s ease-in-out infinite;
+        }
 
-    .name {
-        font-size: 2.5rem;
-        letter-spacing: 3px;
-        margin-bottom: 14px;
-        animation: glow 3s infinite alternate;
-    }
+        .cat:nth-child(6) { left: 10%; animation-delay: 0s; }
+        .cat:nth-child(7) { left: 40%; animation-delay: 2s; }
+        .cat:nth-child(8) { left: 65%; animation-delay: 4s; }
+        .cat:nth-child(9) { left: 85%; animation-delay: 1s; }
 
-    @keyframes glow {
-        from { text-shadow: 0 0 10px rgba(255, 211, 108, 0.5); }
-        to { text-shadow: 0 0 20px rgba(255, 211, 108, 0.9); }
-    }
+        @keyframes catFloat {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
 
-    .copyright {
-        font-size: 0.95rem;
-        color: #cfcfcf;
-        letter-spacing: 1px;
-    }
+        .end-screen {
+            text-align: center;
+            z-index: 10;
+        }
 
-    /* Cat silhouette */
-    .cat {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 80px;
-        animation: catBounce 3s ease-in-out infinite;
-        opacity: 0.85;
-    }
+        /* Calm float animation for Name */
+        .name {
+            font-size: 2.4rem;
+            letter-spacing: 3px;
+            margin-bottom: 14px;
+            color: #6cf2c2;
+            animation: calmFloat 4s ease-in-out infinite;
+        }
 
-    .cat svg {
-        width: 100%;
-        height: auto;
-    }
+        @keyframes calmFloat {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0); }
+        }
 
-    @keyframes catBounce {
-        0%, 100% { transform: translateX(-50%) translateY(0); }
-        50% { transform: translateX(-50%) translateY(-12px); }
-    }
-
-</style>
+        .copyright {
+            font-size: 0.95rem;
+            color: #cfcfcf;
+            letter-spacing: 1px;
+        }
+    </style>
 </head>
 <body>
 
-<!-- Sparkles -->
-<div class="sparkle"></div>
-<div class="sparkle"></div>
-<div class="sparkle"></div>
-<div class="sparkle"></div>
+    <!-- Stars -->
+    <div class="star" style="top: 10%; left: 5%; animation-duration: 3s;"></div>
+    <div class="star" style="top: 30%; left: 25%; animation-duration: 4s;"></div>
+    <div class="star" style="top: 50%; left: 50%; animation-duration: 5s;"></div>
+    <div class="star" style="top: 20%; left: 75%; animation-duration: 6s;"></div>
+    <div class="star" style="top: 60%; left: 85%; animation-duration: 7s;"></div>
 
-<!-- End screen -->
-<div class="end-screen">
-    <div class="name">Erwin Schrödinger's Cat</div>
-    <div class="copyright">© 2023 - 2025</div>
-</div>
+    <!-- Shooting stars -->
+    <div class="shooting-star" style="top:10%; left:0; animation-duration: 4s; animation-delay:1s;"></div>
+    <div class="shooting-star" style="top:30%; left:-50px; animation-duration: 6s; animation-delay:3s;"></div>
 
-<!-- Happy cat silhouette -->
-<div class="cat">
-    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M32 2C22 2 10 12 10 24c0 9 8 16 12 18 0 0 2 4 2 6h4c0-2 2-6 2-6 4-2 12-9 12-18 0-12-12-22-22-22z" fill="#ffeb99"/>
-        <path d="M20 24c0 6 12 6 12 0s-12-6-12 0z" fill="#ffcc66"/>
-        <circle cx="26" cy="22" r="2" fill="#333"/>
-        <circle cx="38" cy="22" r="2" fill="#333"/>
-    </svg>
-</div>
+    <!-- Happy cats (silhouettes) -->
+    <div class="cat"></div>
+    <div class="cat"></div>
+    <div class="cat"></div>
+    <div class="cat"></div>
+
+    <div class="end-screen">
+        <div class="name">Erwin Schrödinger's Cat</div>
+        <div class="copyright">© 2023 - 2025</div>
+    </div>
 
 </body>
 </html>
