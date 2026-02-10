@@ -1,100 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Erwin Schrödinger's Cat</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Segoe UI", system-ui, sans-serif;
-        }
+<meta charset="UTF-8">
+<title>Erwin Schrödinger's Cat</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", system-ui, sans-serif;
+    }
 
-        body {
-            height: 100vh;
-            background: linear-gradient(160deg, #1a1d2e, #0f1220);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            color: #f4f4f4;
-        }
+    body {
+        height: 100vh;
+        background: linear-gradient(160deg, #ffe4b5, #f2d9c2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        color: #3b2f2f;
+    }
 
-        /* Soft floating dust (cat-in-sunlight vibes) */
-        .dust {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.35);
-            border-radius: 50%;
-            animation: drift 18s infinite linear;
-        }
+    /* Floating soft light orbs */
+    .orb {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 50%;
+        filter: blur(2px);
+        animation: floatOrb 12s infinite linear;
+    }
 
-        .dust:nth-child(1) { left: 25%; animation-delay: 0s; }
-        .dust:nth-child(2) { left: 45%; animation-delay: 6s; }
-        .dust:nth-child(3) { left: 65%; animation-delay: 12s; }
+    .orb:nth-child(1) { left: 20%; animation-delay: 0s; }
+    .orb:nth-child(2) { left: 50%; animation-delay: 4s; }
+    .orb:nth-child(3) { left: 75%; animation-delay: 8s; }
 
-        @keyframes drift {
-            from {
-                transform: translateY(110vh);
-                opacity: 0;
-            }
-            15% { opacity: 0.35; }
-            to {
-                transform: translateY(-10vh);
-                opacity: 0;
-            }
-        }
+    @keyframes floatOrb {
+        from { transform: translateY(120vh) scale(0.5); opacity: 0; }
+        20% { opacity: 0.7; }
+        to { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
 
-        .end-screen {
-            text-align: center;
-            animation: appear 2.5s ease forwards;
-        }
+    .end-screen {
+        text-align: center;
+        animation: fadeInUp 2s ease forwards;
+    }
 
-        @keyframes appear {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
 
-        .name {
-            font-size: 2.3rem;
-            letter-spacing: 3px;
-            margin-bottom: 12px;
-            animation: breathe 6s infinite ease-in-out;
-        }
+    .name {
+        font-size: 2.4rem;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+        animation: slowPulse 5s infinite ease-in-out;
+    }
 
-        /* Slow “breathing” like a sleeping cat */
-        @keyframes breathe {
-            0%, 100% {
-                opacity: 0.9;
-                text-shadow: 0 0 10px rgba(255, 220, 180, 0.25);
-            }
-            50% {
-                opacity: 1;
-                text-shadow: 0 0 16px rgba(255, 220, 180, 0.45);
-            }
-        }
+    /* Gentle “breathing” pulse */
+    @keyframes slowPulse {
+        0%, 100% { opacity: 0.9; text-shadow: 0 0 8px rgba(255,255,255,0.4); }
+        50% { opacity: 1; text-shadow: 0 0 18px rgba(255,255,255,0.7); }
+    }
 
-        .copyright {
-            font-size: 0.9rem;
-            color: #c7c7c7;
-            letter-spacing: 1px;
-        }
-    </style>
+    .copyright {
+        font-size: 0.9rem;
+        color: #6b4c3b;
+        letter-spacing: 1px;
+    }
+</style>
 </head>
 <body>
 
-    <!-- Lazy floating dust -->
-    <div class="dust"></div>
-    <div class="dust"></div>
-    <div class="dust"></div>
+    <!-- Floating soft orbs -->
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
 
     <div class="end-screen">
         <div class="name">Erwin Schrödinger's Cat</div>
