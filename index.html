@@ -88,6 +88,37 @@
         <div class="name">Erwin Schrödinger's Cat</div>
         <div class="copyright">© 2023 - 2025</div>
     </div>
+<script>
+const fonts = [
+    'Arial, sans-serif',
+    'Verdana, sans-serif',
+    'Tahoma, sans-serif',
+    'Trebuchet MS, sans-serif',
+    'Georgia, serif',
+    'Times New Roman, serif',
+    'Courier New, monospace',
+    'Lucida Console, monospace',
+    'Impact, sans-serif',
+    'Comic Sans MS, cursive, sans-serif',
+    'Palatino Linotype, serif',
+    'Garamond, serif',
+    'Bookman, serif',
+    'Candara, sans-serif',
+    'Calibri, sans-serif',
+    'Optima, sans-serif',
+    'Helvetica, sans-serif',
+    'Futura, sans-serif',
+    'Gill Sans, sans-serif',
+    'Rockwell, serif'
+];
+
+const nameElement = document.querySelector('.name');
+
+setInterval(() => {
+    const randomFont = fonts[Math.floor(Math.random() * fonts.length)];
+    nameElement.style.fontFamily = randomFont;
+}, 2000);
+</script>
 
 </body>
 </html>
